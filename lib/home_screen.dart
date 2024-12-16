@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/feature/card/presentation/card_screen.dart';
+import 'package:flutter_memorize/feature/memorize/presentation/memorize_screen.dart';
+import 'package:flutter_memorize/feature/setting/presentation/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,9 +39,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         controller: _tabController,
         children: const [
           Center(child: Text('Home')),
-          Center(child: Text('Memorize')),
-          Center(child: Text('Management')),
-          Center(child: Text('Settings')),
+          MemorizeScreen(),
+          CardScreen(),
+          SettingScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -53,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_card),
-            label: 'Management',
+            label: 'Card',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

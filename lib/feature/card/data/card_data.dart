@@ -1,19 +1,14 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-const String table = 'card';
-const String columnId = '_id';
-const String columnKey = 'key';
-const String columnValue = 'value';
-
 class MemorizeCard {
   int id;
   String key;
   String value;
 
   Map<String, Object?> toMap() {
-    var map = <String, Object?>{columnKey: key, columnValue: value};
-    map[columnId] = id;
+    var map = <String, Object?>{"key": key, "value": value};
+    map["id"] = id;
     return map;
   }
 
@@ -24,9 +19,9 @@ class MemorizeCard {
   });
 
   MemorizeCard.fromMap(Map<String, Object?> map)
-      : id = map[columnId] as int,
-        key = map[columnKey] as String,
-        value = map[columnValue] as String;
+      : id = map["id"] as int,
+        key = map["key"] as String,
+        value = map["value"] as String;
 }
 
 class CardProvider {
@@ -34,29 +29,25 @@ class CardProvider {
 
   Future open(String path) async {
     final dbPath = await getDatabasesPath();
+    print("db path :$dbPath");
     db = await openDatabase(
       join(dbPath, path),
       onCreate: (Database db, int version) async {
-        await db.execute('''create table $table ( 
-                            $columnId integer primary key autoincrement, 
-                            $columnKey text not null,
-                            $columnValue text not null)
-                      ''');
+        await db.execute(
+            'create table card ( id integer primary key autoincrement, key text not null, value text not null)');
       },
       version: 1,
     );
   }
 
   Future<MemorizeCard> insert(MemorizeCard card) async {
-    card.id = await db.insert(table, card.toMap());
+    card.id = await db.insert("card", card.toMap());
     return card;
   }
 
   Future<MemorizeCard?> getTodo(int id) async {
-    List<Map> maps = await db.query(table,
-        columns: [columnId, columnKey, columnValue],
-        where: '$columnId = ?',
-        whereArgs: [id]);
+    List<Map> maps = await db.query("card",
+        columns: ["id", "key", "value"], where: 'id = ?', whereArgs: [id]);
     if (maps.isNotEmpty) {
       return MemorizeCard.fromMap(maps.first as Map<String, Object?>);
     }
@@ -64,12 +55,12 @@ class CardProvider {
   }
 
   Future<int> delete(int id) async {
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    return await db.delete("card", where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> update(MemorizeCard card) async {
-    return await db.update(table, card.toMap(),
-        where: '$columnId = ?', whereArgs: [card.id]);
+    return await db
+        .update("card", card.toMap(), where: 'id = ?', whereArgs: [card.id]);
   }
 
   Future close() async => db.close();

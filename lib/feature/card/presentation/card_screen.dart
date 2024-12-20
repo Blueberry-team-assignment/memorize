@@ -10,37 +10,81 @@ class CardScreen extends StatefulWidget {
 
 class _CardScreenState extends State<CardScreen> {
   final DeckProvider _deckProvider = DeckProvider();
+  late Future<List<Deck>> _decksFuture;
 
   @override
   void initState() {
     super.initState();
-    _deckProvider.open('memorized.db');
+    _decksFuture = _initializeData();
+  }
+
+  Future<List<Deck>> _initializeData() async {
+    await _deckProvider.open('memorized.db');
+    return _deckProvider.findAll();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Deck>>(
-        future: _deckProvider.findAll(),
-        initialData: const <Deck>[],
+        future: _decksFuture,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: [
-                for (var deck in snapshot.data!)
-                  Column(
-                    children: [
-                      Text(deck.title),
-                      const SizedBox(height: 10),
-                      Text(deck.desc),
-                    ],
-                  ),
-              ],
-            );
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
           }
-          return Container();
+          if (snapshot.hasError) {
+            return Center(child: Text('에러가 발생했습니다: ${snapshot.error}'));
+          }
+
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('데이터가 없습니다'));
+          }
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final deck = snapshot.data![index];
+                return Card(
+                  elevation: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          deck.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          deck.desc,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: 새로운 덱 추가 기능 구현
+        },
+        backgroundColor: Colors.grey[300],
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

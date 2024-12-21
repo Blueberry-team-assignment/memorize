@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/feature/card/data/deck_data.dart';
+import 'package:flutter_memorize/feature/card/presentation/deck_append_screen.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -40,7 +41,7 @@ class _CardScreenState extends State<CardScreen> {
             return const Center(child: Text('데이터가 없습니다'));
           }
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             child: ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
@@ -49,7 +50,8 @@ class _CardScreenState extends State<CardScreen> {
                   elevation: 4,
                   margin: const EdgeInsets.only(bottom: 16),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -79,7 +81,13 @@ class _CardScreenState extends State<CardScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // TODO: 새로운 덱 추가 기능 구현
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DeckAppendScreen(
+                      deckProvider: _deckProvider,
+                    )),
+          );
         },
         backgroundColor: Colors.grey[300],
         child: const Icon(Icons.add),

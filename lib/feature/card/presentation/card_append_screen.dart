@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/feature/card/data/deck_data.dart';
 
-class DeckAppendScreen extends StatefulWidget {
-  final DeckRepository deckProvider;
-
-  const DeckAppendScreen({super.key, required this.deckProvider});
+class CardAppendScreen extends StatefulWidget {
+  const CardAppendScreen({super.key});
 
   @override
-  State<DeckAppendScreen> createState() => _DeckAppendScreenState();
+  State<CardAppendScreen> createState() => _CardAppendScreenState();
 }
 
-class _DeckAppendScreenState extends State<DeckAppendScreen> {
+class _CardAppendScreenState extends State<CardAppendScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-
-  late final DeckRepository _deckProvider;
 
   @override
   void initState() {
     super.initState();
-    _deckProvider = widget.deckProvider;
   }
 
   @override
@@ -64,12 +58,7 @@ class _DeckAppendScreenState extends State<DeckAppendScreen> {
               height: 55,
               margin: const EdgeInsets.only(bottom: 16),
               child: ElevatedButton(
-                onPressed: () async {
-                  Deck deck = Deck(
-                      title: _titleController.text,
-                      desc: _contentController.text);
-                  await _deckProvider.insert(deck);
-                },
+                onPressed: () async {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[900],
                   foregroundColor: Colors.white,

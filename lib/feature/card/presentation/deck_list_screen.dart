@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/feature/card/data/deck_data.dart';
 import 'package:flutter_memorize/feature/card/presentation/deck_append_screen.dart';
+import 'package:flutter_memorize/feature/card/presentation/deck_detail_screent.dart';
 
 class DeckListScreen extends StatefulWidget {
   const DeckListScreen({super.key});
@@ -11,12 +12,12 @@ class DeckListScreen extends StatefulWidget {
 
 class _DeckListScreenState extends State<DeckListScreen> {
   final DeckRepository _deckProvider = DeckRepository();
-  late Future<List<Deck>> _decksFuture;
+  late Future<List<Deck>> _deckListFuture;
 
   @override
   void initState() {
     super.initState();
-    _decksFuture = _initializeData();
+    _deckListFuture = _initializeData();
   }
 
   Future<List<Deck>> _initializeData() async {
@@ -28,7 +29,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Deck>>(
-        future: _decksFuture,
+        future: _deckListFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -46,31 +47,41 @@ class _DeckListScreenState extends State<DeckListScreen> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final deck = snapshot.data![index];
-                return Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.only(bottom: 16),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          deck.title,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DeckDetailScreen(deck: deck),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            deck.title,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          deck.desc,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
+                          const SizedBox(height: 8),
+                          Text(
+                            deck.desc,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );

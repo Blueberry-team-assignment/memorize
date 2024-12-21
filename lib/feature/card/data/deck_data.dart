@@ -24,17 +24,13 @@ class Deck {
         desc = map["desc"] as String;
 }
 
-class DeckProvider {
+class DeckRepository {
   late Database db;
 
   Future open(String path) async {
     final dbPath = await getDatabasesPath();
     db = await openDatabase(
       join(dbPath, path),
-      onCreate: (Database db, int version) async {
-        await db.execute(
-            'create table deck (id integer primary key autoincrement, title text not null, desc text)');
-      },
       version: 1,
     );
   }

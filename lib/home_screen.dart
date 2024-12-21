@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/feature/card/presentation/card_screen.dart';
+import 'package:flutter_memorize/core/utils/db_provider.dart';
+import 'package:flutter_memorize/feature/card/presentation/deck_list_screen.dart';
 import 'package:flutter_memorize/feature/memorize/presentation/memorize_screen.dart';
 import 'package:flutter_memorize/feature/setting/presentation/setting_screen.dart';
 
@@ -20,6 +21,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(tabListener);
+    _intiDB();
+  }
+
+  Future<void> _intiDB() async {
+    DatabaseProvider databaseProvider = DatabaseProvider();
+    await databaseProvider.create("memorized.db");
   }
 
   void tabListener() {
@@ -40,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: const [
           Center(child: Text('Home')),
           MemorizeScreen(),
-          CardScreen(),
+          DeckListScreen(),
           SettingScreen(),
         ],
       ),

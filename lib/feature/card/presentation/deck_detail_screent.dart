@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/feature/card/data/card_data.dart' as c;
 import 'package:flutter_memorize/feature/card/data/deck_data.dart';
-import 'package:flutter_memorize/feature/card/presentation/deck_append_screen.dart';
+import 'package:flutter_memorize/feature/card/presentation/card_append_screen.dart';
 
-class DeckListScreen extends StatefulWidget {
-  const DeckListScreen({super.key});
+class DeckDetailScreen extends StatefulWidget {
+  const DeckDetailScreen({super.key, required Deck deck});
 
   @override
-  State<DeckListScreen> createState() => _DeckListScreenState();
+  State<DeckDetailScreen> createState() => _DeckDetailScreenState();
 }
 
-class _DeckListScreenState extends State<DeckListScreen> {
-  final DeckRepository _deckProvider = DeckRepository();
-  late Future<List<Deck>> _decksFuture;
+class _DeckDetailScreenState extends State<DeckDetailScreen> {
+  final c.CardRepository _cardProvider = c.CardRepository();
+  late Future<List<c.Card>> _cardListFuture;
 
   @override
   void initState() {
     super.initState();
-    _decksFuture = _initializeData();
+    _cardListFuture = _initializeData();
   }
 
-  Future<List<Deck>> _initializeData() async {
-    await _deckProvider.open('memorized.db');
-    return _deckProvider.findAll();
+  Future<List<c.Card>> _initializeData() async {
+    await _cardProvider.open('memorized.db');
+    return _cardProvider.findAll();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<Deck>>(
-        future: _decksFuture,
+      body: FutureBuilder<List<c.Card>>(
+        future: _cardListFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -45,7 +46,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
             child: ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                final deck = snapshot.data![index];
+                final card = snapshot.data![index];
                 return Card(
                   elevation: 4,
                   margin: const EdgeInsets.only(bottom: 16),
@@ -56,7 +57,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          deck.title,
+                          card.title,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -64,7 +65,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          deck.desc,
+                          card.desc,
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.grey,
@@ -82,12 +83,9 @@ class _DeckListScreenState extends State<DeckListScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DeckAppendScreen(
-                      deckProvider: _deckProvider,
-                    )),
-          );
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CardAppendScreen()));
         },
         backgroundColor: Colors.grey[300],
         child: const Icon(Icons.add),

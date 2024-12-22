@@ -42,7 +42,6 @@ class _DeckScreenState extends State<DeckScreen> {
           if (snapshot.hasError) {
             return Center(child: Text('에러가 발생했습니다: ${snapshot.error}'));
           }
-
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('데이터가 없습니다'));
           }
@@ -57,7 +56,7 @@ class _DeckScreenState extends State<DeckScreen> {
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: Colors.black,
                   ),
                 ),
                 Text(

@@ -65,7 +65,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('삭제 확인'),
-                          content: const Text('이 덱을 삭제하시겠습니까?'),
+                          content: Text('${deck.title} 덱을 삭제하시겠습니까?'),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(false),
@@ -147,13 +147,15 @@ class _DeckListScreenState extends State<DeckListScreen> {
               ),
             ),
           );
-          setState(() {
-            _deckListFuture = _deckRepository.findAll();
-          });
-          if (!context.mounted) return;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('$title 덱이 추가되었습니다')),
-          );
+          if (title != null) {
+            setState(() {
+              _deckListFuture = _deckRepository.findAll();
+            });
+            if (!context.mounted) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('$title 덱이 추가되었습니다')),
+            );
+          }
         },
         backgroundColor: Colors.grey[300],
         child: const Icon(Icons.add),

@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/feature/card/data/card_data.dart' as c;
 import 'package:flutter_memorize/feature/card/data/deck_data.dart';
-import 'package:flutter_memorize/feature/card/presentation/deck_append_screen.dart';
-import 'package:flutter_memorize/feature/card/presentation/deck_screen.dart';
+import 'package:flutter_memorize/feature/card/presentation/card_append_screen.dart';
+import 'package:flutter_memorize/feature/card/presentation/card_screen.dart';
 
-class DeckListScreen extends StatefulWidget {
-  const DeckListScreen({super.key});
+class DeckScreen extends StatefulWidget {
+  final Deck deck;
+  const DeckScreen({super.key, required this.deck});
 
   @override
-  State<DeckListScreen> createState() => _DeckListScreenState();
+  State<DeckScreen> createState() => _DeckScreenState();
 }
 
-class _DeckListScreenState extends State<DeckListScreen> {
-  final DeckRepository _deckRepository = DeckRepository();
-  late Future<List<Deck>> _deckListFuture;
+class _DeckScreenState extends State<DeckScreen> {
+  final c.CardRepository _cardRepository = c.CardRepository();
+  late Future<List<c.Card>> _cardListFuture;
 
   @override
   void initState() {
     super.initState();
-    _deckListFuture = _initializeData();
+    _cardListFuture = _initializeData();
   }
 
-  Future<List<Deck>> _initializeData() async {
-    await _deckRepository.open('memorized.db');
-    return _deckRepository.findAll();
+  Future<List<c.Card>> _initializeData() async {
+    await _cardRepository.open('memorized.db');
+    return _cardRepository.findByDeckId(widget.deck.id!);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<Deck>>(
-        future: _deckListFuture,
+      appBar: AppBar(
+        title: const Text('카드 리스트'),
+      ),
+      body: FutureBuilder<List<c.Card>>(
+        future: _cardListFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -46,13 +51,16 @@ class _DeckListScreenState extends State<DeckListScreen> {
             child: ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                final deck = snapshot.data![index];
+                final card = snapshot.data![index];
                 return InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DeckScreen(deck: deck),
+                        builder: (context) => CardScreen(
+                          card: card,
+                          cardRepository: _cardRepository,
+                        ),
                       ),
                     );
                   },
@@ -66,7 +74,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            deck.title,
+                            card.title,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -74,7 +82,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            deck.desc,
+                            card.desc,
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
@@ -95,9 +103,11 @@ class _DeckListScreenState extends State<DeckListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DeckAppendScreen(
-                      deckProvider: _deckRepository,
-                    )),
+              builder: (context) => CardAppendScreen(
+                deck: widget.deck,
+                cardRepository: _cardRepository,
+              ),
+            ),
           );
         },
         backgroundColor: Colors.grey[300],

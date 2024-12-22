@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/feature/card/data/card_data.dart' as c;
+import 'package:flutter_memorize/feature/card/data/deck_data.dart';
 
 class CardAppendScreen extends StatefulWidget {
-  const CardAppendScreen({super.key});
+  final Deck deck;
+  final c.CardRepository cardRepository;
+
+  const CardAppendScreen(
+      {super.key, required this.deck, required this.cardRepository});
 
   @override
   State<CardAppendScreen> createState() => _CardAppendScreenState();
@@ -10,11 +16,6 @@ class CardAppendScreen extends StatefulWidget {
 class _CardAppendScreenState extends State<CardAppendScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -27,7 +28,7 @@ class _CardAppendScreenState extends State<CardAppendScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('새로운 덱 추가'),
+        title: const Text('새로운 카드 추가'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,7 +59,14 @@ class _CardAppendScreenState extends State<CardAppendScreen> {
               height: 55,
               margin: const EdgeInsets.only(bottom: 16),
               child: ElevatedButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  c.Card card = c.Card(
+                    title: _titleController.text,
+                    desc: _contentController.text,
+                    deckId: widget.deck.id!,
+                  );
+                  await widget.cardRepository.insert(card);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[900],
                   foregroundColor: Colors.white,

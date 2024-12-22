@@ -77,7 +77,6 @@ class _DeckAppendScreenState extends State<DeckAppendScreen> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   elevation: 3,
-                  shadowColor: Theme.of(context).primaryColor.withOpacity(0.5),
                 ),
                 child: const Text(
                   '등록하기',

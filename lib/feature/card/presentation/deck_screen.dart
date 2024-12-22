@@ -53,8 +53,8 @@ class _DeckScreenState extends State<DeckScreen> {
               itemBuilder: (context, index) {
                 final card = snapshot.data![index];
                 return InkWell(
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => CardScreen(
@@ -63,6 +63,10 @@ class _DeckScreenState extends State<DeckScreen> {
                         ),
                       ),
                     );
+                    setState(() {
+                      _cardListFuture =
+                          _cardRepository.findByDeckId(widget.deck.id!);
+                    });
                   },
                   child: Card(
                     elevation: 4,

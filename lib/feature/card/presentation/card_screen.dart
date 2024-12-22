@@ -69,6 +69,7 @@ class _CardScreenState extends State<CardScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         await widget.cardRepository.delete(widget.card.id!);
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red[900],

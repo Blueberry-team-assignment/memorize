@@ -60,73 +60,37 @@ class _CardScreenState extends State<CardScreen> {
               maxLines: 10,
             ),
             const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 55,
-                    margin: const EdgeInsets.only(bottom: 16),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await widget.cardRepository.delete(widget.card.id!);
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red[900],
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        elevation: 3,
-                        //shadowColor:Theme.of(context).primaryColor.withOpacity(0.5),
-                      ),
-                      child: const Text(
-                        '삭제',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
+            Container(
+              height: 55,
+              margin: const EdgeInsets.only(bottom: 16),
+              child: ElevatedButton(
+                onPressed: () async {
+                  c.Card card = c.Card(
+                    id: widget.card.id!,
+                    title: _titleController.text,
+                    desc: _contentController.text,
+                    deckId: widget.card.deckId,
+                  );
+                  await widget.cardRepository.update(card);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green[900],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  elevation: 3,
+                  shadowColor: Colors.grey[900]?.withOpacity(0.5),
+                ),
+                child: const Text(
+                  '수정',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
                   ),
                 ),
-                const SizedBox(width: 16), // 버튼 사이 간격
-                Expanded(
-                  child: Container(
-                    height: 55,
-                    margin: const EdgeInsets.only(bottom: 16),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        c.Card card = c.Card(
-                          id: widget.card.id!,
-                          title: _titleController.text,
-                          desc: _contentController.text,
-                          deckId: widget.card.deckId,
-                        );
-                        await widget.cardRepository.update(card);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[900],
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        elevation: 3,
-                        shadowColor: Colors.grey[900]?.withOpacity(0.5),
-                      ),
-                      child: const Text(
-                        '수정',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),

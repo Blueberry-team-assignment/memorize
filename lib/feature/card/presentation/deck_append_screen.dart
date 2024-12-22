@@ -69,6 +69,7 @@ class _DeckAppendScreenState extends State<DeckAppendScreen> {
                       title: _titleController.text,
                       desc: _contentController.text);
                   await _deckProvider.insert(deck);
+                  Navigator.pop(context, _titleController.text);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[900],

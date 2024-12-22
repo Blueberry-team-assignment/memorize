@@ -138,13 +138,21 @@ class _DeckListScreenState extends State<DeckListScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final title = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DeckAppendScreen(
-                      deckProvider: _deckRepository,
-                    )),
+              builder: (context) => DeckAppendScreen(
+                deckProvider: _deckRepository,
+              ),
+            ),
+          );
+          setState(() {
+            _deckListFuture = _deckRepository.findAll();
+          });
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('$title 덱이 추가되었습니다')),
           );
         },
         backgroundColor: Colors.grey[300],

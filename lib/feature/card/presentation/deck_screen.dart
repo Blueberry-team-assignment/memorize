@@ -103,8 +103,8 @@ class _DeckScreenState extends State<DeckScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final title = await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CardAppendScreen(
@@ -112,6 +112,13 @@ class _DeckScreenState extends State<DeckScreen> {
                 cardRepository: _cardRepository,
               ),
             ),
+          );
+          setState(() {
+            _cardListFuture = _cardRepository.findByDeckId(widget.deck.id!);
+          });
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('$title 카드가 추가되었습니다')),
           );
         },
         backgroundColor: Colors.grey[300],

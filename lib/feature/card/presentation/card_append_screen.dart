@@ -66,6 +66,7 @@ class _CardAppendScreenState extends State<CardAppendScreen> {
                     deckId: widget.deck.id!,
                   );
                   await widget.cardRepository.insert(card);
+                  Navigator.pop(context, _titleController.text);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[900],

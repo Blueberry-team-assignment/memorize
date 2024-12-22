@@ -187,13 +187,15 @@ class _DeckScreenState extends State<DeckScreen> {
               ),
             ),
           );
-          setState(() {
-            _cardListFuture = _cardRepository.findByDeckId(widget.deck.id!);
-          });
-          if (!context.mounted) return;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('$title 카드가 추가되었습니다')),
-          );
+          if (title != null) {
+            setState(() {
+              _cardListFuture = _cardRepository.findByDeckId(widget.deck.id!);
+            });
+            if (!context.mounted) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('$title 카드가 추가되었습니다')),
+            );
+          }
         },
         backgroundColor: Colors.grey[300],
         child: const Icon(Icons.add),

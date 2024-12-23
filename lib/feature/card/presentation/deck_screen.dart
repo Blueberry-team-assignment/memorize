@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/feature/card/data/card_data.dart' as c;
+import 'package:flutter_memorize/feature/card/data/card_repository.dart';
 import 'package:flutter_memorize/feature/card/data/deck_data.dart';
 import 'package:flutter_memorize/feature/card/presentation/card_append_screen.dart';
 import 'package:flutter_memorize/feature/card/presentation/card_screen.dart';
+import 'package:flutter_memorize/model/card.dart' as m;
 
 class DeckScreen extends StatefulWidget {
   final Deck deck;
@@ -13,8 +14,8 @@ class DeckScreen extends StatefulWidget {
 }
 
 class _DeckScreenState extends State<DeckScreen> {
-  final c.CardRepository _cardRepository = c.CardRepository();
-  late Future<List<c.Card>> _cardListFuture;
+  final CardRepository _cardRepository = CardRepository();
+  late Future<List<m.Card>> _cardListFuture;
 
   @override
   void initState() {
@@ -22,7 +23,7 @@ class _DeckScreenState extends State<DeckScreen> {
     _cardListFuture = _initializeData();
   }
 
-  Future<List<c.Card>> _initializeData() async {
+  Future<List<m.Card>> _initializeData() async {
     await _cardRepository.open('memorized.db');
     return _cardRepository.findByDeckId(widget.deck.id!);
   }
@@ -33,7 +34,7 @@ class _DeckScreenState extends State<DeckScreen> {
       appBar: AppBar(
         title: const Text('카드 리스트'),
       ),
-      body: FutureBuilder<List<c.Card>>(
+      body: FutureBuilder<List<m.Card>>(
         future: _cardListFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

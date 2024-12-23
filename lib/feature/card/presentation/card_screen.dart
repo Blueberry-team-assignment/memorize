@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/feature/card/data/card_data.dart' as c;
+import 'package:flutter_memorize/feature/card/data/card_repository.dart';
+import 'package:flutter_memorize/model/card.dart' as m;
 
 class CardScreen extends StatefulWidget {
-  final c.Card card;
-  final c.CardRepository cardRepository;
+  final m.Card card;
+  final CardRepository cardRepository;
 
   const CardScreen(
       {super.key, required this.card, required this.cardRepository});
@@ -65,7 +66,7 @@ class _CardScreenState extends State<CardScreen> {
               margin: const EdgeInsets.only(bottom: 16),
               child: ElevatedButton(
                 onPressed: () async {
-                  c.Card card = c.Card(
+                  m.Card card = m.Card(
                     id: widget.card.id!,
                     title: _titleController.text,
                     desc: _contentController.text,

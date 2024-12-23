@@ -1,35 +1,6 @@
+import 'package:flutter_memorize/model/card.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
-class Card {
-  int? id;
-  String title;
-  String desc;
-  int deckId;
-
-  Map<String, Object?> toMap() {
-    var map = <String, Object?>{
-      "title": title,
-      "desc": desc,
-      "deck_id": deckId
-    };
-    map["id"] = id;
-    return map;
-  }
-
-  Card({
-    this.id,
-    required this.title,
-    required this.desc,
-    required this.deckId,
-  });
-
-  Card.fromMap(Map<String, Object?> map)
-      : id = map["id"] as int,
-        title = map["title"] as String,
-        desc = map["desc"] as String,
-        deckId = map["deck_id"] as int;
-}
 
 class CardRepository {
   late Database db;
@@ -75,6 +46,10 @@ class CardRepository {
 
   Future<int> delete(int id) async {
     return await db.delete("card", where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteByDeckId(int deckId) async {
+    return await db.delete("deck", where: 'deck_id = ?', whereArgs: [deckId]);
   }
 
   Future<int> update(Card card) async {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/feature/card/data/card_data.dart' as c;
+import 'package:flutter_memorize/feature/card/data/card_repository.dart';
 import 'package:flutter_memorize/feature/card/data/deck_data.dart';
+import 'package:flutter_memorize/model/card.dart' as m;
 
 class CardAppendScreen extends StatefulWidget {
   final Deck deck;
-  final c.CardRepository cardRepository;
+  final CardRepository cardRepository;
 
   const CardAppendScreen(
       {super.key, required this.deck, required this.cardRepository});
@@ -60,7 +61,7 @@ class _CardAppendScreenState extends State<CardAppendScreen> {
               margin: const EdgeInsets.only(bottom: 16),
               child: ElevatedButton(
                 onPressed: () async {
-                  c.Card card = c.Card(
+                  m.Card card = m.Card(
                     title: _titleController.text,
                     desc: _contentController.text,
                     deckId: widget.deck.id!,

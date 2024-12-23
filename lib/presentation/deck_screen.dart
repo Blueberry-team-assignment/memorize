@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/model/card.dart' as m;
-import 'package:flutter_memorize/model/deck.dart';
+import 'package:flutter_memorize/data/models/card.dart' as m;
+import 'package:flutter_memorize/data/models/deck.dart';
+import 'package:flutter_memorize/data/repositories/card_repository.dart';
 import 'package:flutter_memorize/presentation/card_append_screen.dart';
 import 'package:flutter_memorize/presentation/card_screen.dart';
-import 'package:flutter_memorize/repository/card_repository.dart';
 
 class DeckScreen extends StatefulWidget {
   final Deck deck;
@@ -24,7 +24,6 @@ class _DeckScreenState extends State<DeckScreen> {
   }
 
   Future<List<m.Card>> _initializeData() async {
-    await _cardRepository.open('memorized.db');
     return _cardRepository.findByDeckId(widget.deck.id!);
   }
 

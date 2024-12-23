@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/model/card.dart' as m;
-import 'package:flutter_memorize/repository/card_repository.dart';
+import 'package:flutter_memorize/data/models/card.dart' as m;
+import 'package:flutter_memorize/data/repositories/card_repository.dart';
 
 class CardScreen extends StatefulWidget {
   final m.Card card;

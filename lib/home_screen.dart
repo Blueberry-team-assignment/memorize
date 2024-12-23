@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/core/utils/db_provider.dart';
 import 'package:flutter_memorize/presentation/deck_list_screen.dart';
 import 'package:flutter_memorize/presentation/memorize_screen.dart';
 import 'package:flutter_memorize/presentation/setting_screen.dart';
@@ -21,12 +20,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(tabListener);
-    _intiDB();
-  }
-
-  Future<void> _intiDB() async {
-    DatabaseProvider databaseProvider = DatabaseProvider();
-    await databaseProvider.create("memorized.db");
   }
 
   void tabListener() {

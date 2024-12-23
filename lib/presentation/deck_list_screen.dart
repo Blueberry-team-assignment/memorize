@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/model/deck.dart';
+import 'package:flutter_memorize/data/models/deck.dart';
+import 'package:flutter_memorize/data/repositories/deck_repository.dart';
 import 'package:flutter_memorize/presentation/deck_append_screen.dart';
 import 'package:flutter_memorize/presentation/deck_screen.dart';
-import 'package:flutter_memorize/repository/deck_data.dart';
+
+import '../core/utils/talker_service.dart';
 
 class DeckListScreen extends StatefulWidget {
   const DeckListScreen({super.key});
@@ -12,17 +14,19 @@ class DeckListScreen extends StatefulWidget {
 }
 
 class _DeckListScreenState extends State<DeckListScreen> {
-  final DeckRepository _deckRepository = DeckRepository();
+  late final DeckRepository _deckRepository = DeckRepository();
   late Future<List<Deck>> _deckListFuture;
 
   @override
   void initState() {
+    talker.debug("DeckListScreen.initState init");
     super.initState();
     _deckListFuture = _initializeData();
+    talker.debug("DeckListScreen.initState end");
   }
 
   Future<List<Deck>> _initializeData() async {
-    await _deckRepository.open('memorized.db');
+    talker.debug("DeckListScreen._initializeData init");
     return _deckRepository.findAll();
   }
 

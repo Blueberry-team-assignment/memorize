@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/feature/card/data/deck_data.dart';
-import 'package:flutter_memorize/feature/card/presentation/deck_append_screen.dart';
-import 'package:flutter_memorize/feature/card/presentation/deck_screen.dart';
+import 'package:flutter_memorize/model/deck.dart';
+import 'package:flutter_memorize/presentation/deck_append_screen.dart';
+import 'package:flutter_memorize/presentation/deck_screen.dart';
+import 'package:flutter_memorize/repository/deck_data.dart';
 
 class DeckListScreen extends StatefulWidget {
   const DeckListScreen({super.key});

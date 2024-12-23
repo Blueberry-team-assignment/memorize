@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/core/utils/db_provider.dart';
-import 'package:flutter_memorize/feature/card/presentation/deck_list_screen.dart';
-import 'package:flutter_memorize/feature/memorize/presentation/memorize_screen.dart';
-import 'package:flutter_memorize/feature/setting/presentation/setting_screen.dart';
+import 'package:flutter_memorize/presentation/deck_list_screen.dart';
+import 'package:flutter_memorize/presentation/memorize_screen.dart';
+import 'package:flutter_memorize/presentation/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

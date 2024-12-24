@@ -1,20 +1,13 @@
 import 'package:flutter_memorize/core/utils/database_helper.dart';
+import 'package:flutter_memorize/core/utils/talker_service.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
 
-/*
-final deckRepositoryProvider = Provider((_) => DeckRepository());
-final decksProvider = FutureProvider((ref) {
-  final deckRepository = ref.watch(deckRepositoryProvider);
-  return deckRepository;
-});
-*/
 class DeckRepository {
   final dbHelper = DatabaseHelper();
 
-  Future<Deck> insert(Deck deck) async {
+  Future<void> insert(Deck deck) async {
     final db = await dbHelper.database;
-    deck.id = await db.insert("deck", deck.toMap());
-    return deck;
+    await db.insert("deck", deck.toJson());
   }
 
   Future<List<Deck>> findAll() async {
@@ -36,19 +29,21 @@ class DeckRepository {
     List<Map> maps = await db.query("deck",
         columns: ["id", "title", "desc"], where: 'id = ?', whereArgs: [id]);
     if (maps.isNotEmpty) {
-      return Deck.fromMap(maps.first as Map<String, Object?>);
+      return Deck.fromJson(maps.first as Map<String, Object?>);
     }
     return null;
   }
 
-  Future<int> delete(int id) async {
+  Future<void> delete(int id) async {
+    talker.debug("DeckRepository.delete by id : $id init");
     final db = await dbHelper.database;
-    return await db.delete("deck", where: 'id = ?', whereArgs: [id]);
+    await db.delete("deck", where: 'id = ?', whereArgs: [id]);
+    talker.debug("DeckRepository.delete by id : $id end");
   }
 
-  Future<int> update(Deck deck) async {
+  Future<void> update(Deck deck) async {
     final db = await dbHelper.database;
-    return await db
-        .update("deck", deck.toMap(), where: 'id = ?', whereArgs: [deck.id]);
+    await db
+        .update("deck", deck.toJson(), where: 'id = ?', whereArgs: [deck.id]);
   }
 }

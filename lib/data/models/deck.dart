@@ -1,22 +1,15 @@
-class Deck {
-  int? id;
-  String title;
-  String desc;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Deck({
-    this.id,
-    required this.title,
-    required this.desc,
-  });
+part 'deck.freezed.dart';
+part 'deck.g.dart';
 
-  Map<String, Object?> toMap() {
-    var map = <String, Object?>{"title": title, "desc": desc};
-    map["id"] = id;
-    return map;
-  }
+@freezed
+class Deck with _$Deck {
+  factory Deck({
+    int? id,
+    required String title,
+    required String desc,
+  }) = _Deck;
 
-  Deck.fromMap(Map<String, Object?> map)
-      : id = map["id"] as int,
-        title = map["title"] as String,
-        desc = map["desc"] as String;
+  factory Deck.fromJson(Map<String, dynamic> json) => _$DeckFromJson(json);
 }

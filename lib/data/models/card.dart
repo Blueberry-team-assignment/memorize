@@ -1,29 +1,16 @@
-class Card {
-  int? id;
-  String title;
-  String desc;
-  int deckId;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Map<String, Object?> toMap() {
-    var map = <String, Object?>{
-      "title": title,
-      "desc": desc,
-      "deck_id": deckId
-    };
-    map["id"] = id;
-    return map;
-  }
+part 'card.freezed.dart';
+part 'card.g.dart';
 
-  Card({
-    this.id,
-    required this.title,
-    required this.desc,
-    required this.deckId,
-  });
+@freezed
+class Card with _$Card {
+  factory Card({
+    int? id,
+    required String title,
+    required String desc,
+    required int deckId,
+  }) = _Card;
 
-  Card.fromMap(Map<String, Object?> map)
-      : id = map["id"] as int,
-        title = map["title"] as String,
-        desc = map["desc"] as String,
-        deckId = map["deck_id"] as int;
+  factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 }

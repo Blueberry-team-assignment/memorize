@@ -86,7 +86,7 @@ class _DeckListScreenState extends State<DeckListScreen> {
                     );
                   },
                   onDismissed: (direction) async {
-                    //await _deckRepository.delete(deck.id!);
+                    await _deckRepository.delete(deck.id!);
                     setState(() {
                       snapshot.data!.removeAt(index);
                     });

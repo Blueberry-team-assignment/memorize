@@ -1,56 +1,61 @@
 import 'package:flutter_memorize/core/utils/database_helper.dart';
+import 'package:flutter_memorize/core/utils/talker_service.dart';
 import 'package:flutter_memorize/data/models/card.dart';
 
 class CardRepository {
   final dbHelper = DatabaseHelper();
 
-  Future<Card> insert(Card card) async {
+  Future<void> insert(Card card) async {
+    talker.debug("CardRepository.insert : $card init");
     final db = await dbHelper.database;
-    card.id = await db.insert("card", card.toMap());
-    return card;
+    await db.insert("card", card.toJson());
+    talker.debug("CardRepository.insert : $card end");
   }
 
   Future<List<Card>> findByDeckId(int deckId) async {
+    talker.debug("CardRepository.findByDeckId init {$deckId}");
     final db = await dbHelper.database;
     final List<Map<String, dynamic>> maps =
-        await db.query("card", where: 'deck_id = ?', whereArgs: [deckId]);
+        await db.query("card", where: 'deckId = ?', whereArgs: [deckId]);
     if (maps.isEmpty) return [];
+    talker.debug(maps);
     List<Card> list = List.generate(maps.length, (index) {
       return Card(
         id: maps[index]["id"],
         title: maps[index]["title"],
         desc: maps[index]["desc"],
-        deckId: maps[index]["deck_id"],
+        deckId: maps[index]["deckId"],
       );
     });
+    talker.debug("CardRepository.findByDeckId end {$deckId}");
     return list;
   }
 
   Future<Card?> findById(int id) async {
     final db = await dbHelper.database;
     List<Map> maps = await db.query("card",
-        columns: ["id", "key", "value", "deck_id"],
+        columns: ["id", "key", "value", "deckId"],
         where: 'id = ?',
         whereArgs: [id]);
     if (maps.isNotEmpty) {
-      return Card.fromMap(maps.first as Map<String, Object?>);
+      return Card.fromJson(maps.first as Map<String, Object?>);
     }
     return null;
   }
 
-  Future<int> delete(int id) async {
+  Future<void> delete(int id) async {
     final db = await dbHelper.database;
-    return await db.delete("card", where: 'id = ?', whereArgs: [id]);
+    await db.delete("card", where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<int> deleteByDeckId(int deckId) async {
+  Future<void> deleteByDeckId(int deckId) async {
     final db = await dbHelper.database;
-    return await db.delete("deck", where: 'deck_id = ?', whereArgs: [deckId]);
+    await db.delete("deck", where: 'deckId = ?', whereArgs: [deckId]);
   }
 
-  Future<int> update(Card card) async {
+  Future<void> update(Card card) async {
     final db = await dbHelper.database;
-    return await db
-        .update("card", card.toMap(), where: 'id = ?', whereArgs: [card.id]);
+    await db
+        .update("card", card.toJson(), where: 'id = ?', whereArgs: [card.id]);
   }
 }

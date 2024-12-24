@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/data/repositories/card_repository.dart';
-import 'package:flutter_memorize/presentation/card_append_screen.dart';
-import 'package:flutter_memorize/presentation/card_screen.dart';
+import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
+import 'package:flutter_memorize/presentation/pages/card_screen.dart';
 
 class DeckScreen extends StatefulWidget {
   final Deck deck;

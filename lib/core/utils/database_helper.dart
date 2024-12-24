@@ -28,6 +28,6 @@ class DatabaseHelper {
     await db.execute(
         'create table deck ( id integer primary key autoincrement, title text not null, desc text not null)');
     await db.execute(
-        'create table card ( id integer primary key autoincrement, title text not null, desc text not null, deck_id integer not null)');
+        'create table card ( id integer primary key autoincrement, title text not null, desc text not null, deckId integer not null)');
   }
 }

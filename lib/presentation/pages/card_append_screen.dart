@@ -1,32 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/data/repositories/card_repository.dart';
+import 'package:flutter_memorize/data/providers/card_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CardAppendScreen extends StatefulWidget {
+class CardAppendScreen extends ConsumerWidget {
   final Deck deck;
-  final CardRepository cardRepository;
 
-  const CardAppendScreen(
-      {super.key, required this.deck, required this.cardRepository});
+  CardAppendScreen({super.key, required this.deck});
 
-  @override
-  State<CardAppendScreen> createState() => _CardAppendScreenState();
-}
-
-class _CardAppendScreenState extends State<CardAppendScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
 
   @override
-  void dispose() {
-    _titleController.dispose();
-    _contentController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('새로운 카드 추가'),
@@ -64,9 +51,11 @@ class _CardAppendScreenState extends State<CardAppendScreen> {
                   m.Card card = m.Card(
                     title: _titleController.text,
                     desc: _contentController.text,
-                    deckId: widget.deck.id!,
+                    deckId: deck.id!,
                   );
-                  await widget.cardRepository.insert(card);
+                  await ref
+                      .read(cardListNotifierProvider(deck.id!).notifier)
+                      .addCard(card);
                   Navigator.pop(context, _titleController.text);
                 },
                 style: ElevatedButton.styleFrom(

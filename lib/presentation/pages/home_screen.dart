@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           MemorizeScreen(),
           DeckListScreen(),
           SettingScreen(),
+          //DeckProviderScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

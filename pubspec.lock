@@ -30,6 +30,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.3"
+  animated_flip_widget:
+    dependency: "direct main"
+    description:
+      name: animated_flip_widget
+      sha256: "26b79a396219ce1702f4648eec95b857deb788dc835ab0f73a7c32a4cafa72fe"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   ansicolor:
     dependency: transitive
     description:
@@ -296,6 +304,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   freezed:
     dependency: "direct main"
     description:
@@ -328,6 +341,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "2fd11229f59e23e967b0775df8d5948a519cd7e1e8b6e849729e010587b46539"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.6.2"
   graphs:
     dependency: transitive
     description:

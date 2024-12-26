@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/core/utils/common.dart';
+import 'package:flutter_memorize/core/utils/common_msg.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/data/providers/deck_provider.dart';
 import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
+import 'package:flutter_memorize/presentation/widgets/button.dart';
+import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeckListScreen extends ConsumerWidget {
@@ -62,7 +64,7 @@ class DeckListScreen extends ConsumerWidget {
                     onDismissed: (direction) async {
                       await ref
                           .read(deckListNotifierProvider.notifier)
-                          .deleteDeck(deck.id!);
+                          .deleteDeck(deck);
                       showSnackBar(context, '${deck.title} 덱이 삭제되었습니다');
                     },
                     child: InkWell(
@@ -85,21 +87,9 @@ class DeckListScreen extends ConsumerWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  deck.title,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                memorizeCardTitleText(text: deck.title),
                                 const SizedBox(height: 8),
-                                Text(
-                                  deck.desc,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey,
-                                  ),
-                                ),
+                                memorizedCardDescText(text: deck.desc),
                               ],
                             ),
                           ),
@@ -114,20 +104,9 @@ class DeckListScreen extends ConsumerWidget {
           _ => const CircularProgressIndicator(),
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final title = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DeckAppendScreen(),
-            ),
-          );
-          if (title != null) {
-            showSnackBar(context, '$title 덱이 추가되었습니다');
-          }
-        },
-        backgroundColor: Colors.grey[300],
-        child: const Icon(Icons.add),
+      floatingActionButton: MemorizeFloatingActionButton(
+        forwardingWidget: DeckAppendScreen(),
+        message: "덱이 추가 되었습니다.",
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

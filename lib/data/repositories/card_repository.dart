@@ -5,11 +5,9 @@ import 'package:flutter_memorize/data/models/card.dart';
 class CardRepository {
   final dbHelper = DatabaseHelper();
 
-  Future<void> insert(Card card) async {
-    talker.debug("CardRepository.insert : $card init");
+  Future<void> save(Card card) async {
     final db = await dbHelper.database;
     await db.insert("card", card.toJson());
-    talker.debug("CardRepository.insert : $card end");
   }
 
   Future<List<Card>> findByDeckId(int deckId) async {

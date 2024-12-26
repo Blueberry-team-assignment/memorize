@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/data/providers/card_provider.dart';
+import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CardAppendScreen extends ConsumerWidget {
@@ -42,40 +43,18 @@ class CardAppendScreen extends ConsumerWidget {
               maxLines: 10,
             ),
             const Spacer(),
-            Container(
-              width: double.infinity,
-              height: 55,
-              margin: const EdgeInsets.only(bottom: 16),
-              child: ElevatedButton(
-                onPressed: () async {
-                  m.Card card = m.Card(
-                    title: _titleController.text,
-                    desc: _contentController.text,
-                    deckId: deck.id!,
-                  );
-                  await ref
-                      .read(cardListNotifierProvider(deck.id!).notifier)
-                      .addCard(card);
-                  Navigator.pop(context, _titleController.text);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[900],
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  elevation: 3,
-                  shadowColor: Theme.of(context).primaryColor.withOpacity(0.5),
-                ),
-                child: const Text(
-                  '등록하기',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
+            MemorizeAcceptButton(
+              onPressed: () async {
+                m.Card card = m.Card(
+                  title: _titleController.text,
+                  desc: _contentController.text,
+                  deckId: deck.id!,
+                );
+                await ref
+                    .read(cardListNotifierProvider(deck.id!).notifier)
+                    .addCard(card);
+                if (context.mounted) Navigator.pop(context, card.title);
+              },
             ),
           ],
         ),

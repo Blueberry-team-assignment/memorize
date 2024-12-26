@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/presentation/pages/home_screen.dart';
+import 'package:flutter_memorize/core/utils/go_router_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
@@ -16,13 +16,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Memorized CCC',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      //home: const HomeScreen(),
     );
   }
 }

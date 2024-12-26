@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/presentation/pages/deck_list_screen.dart';
-import 'package:flutter_memorize/presentation/pages/memorize_screen.dart';
+import 'package:flutter_memorize/presentation/pages/memorize_list_screen.dart';
 import 'package:flutter_memorize/presentation/pages/setting_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         controller: _tabController,
         children: const [
           Center(child: Text('Home')),
-          MemorizeScreen(),
+          MemorizeListScreen(),
           DeckListScreen(),
           SettingScreen(),
           //DeckProviderScreen(),

@@ -13,15 +13,17 @@ class DeckListNotifier extends _$DeckListNotifier {
   }
 
   Future<void> addDeck(Deck deck) async {
-    await DeckRepository().insert(deck);
-    ref.invalidateSelf();
-    await future;
+    await DeckRepository().save(deck);
+    final previousState = await future;
+    previousState.add(deck);
+    ref.notifyListeners();
   }
 
-  Future<void> deleteDeck(int id) async {
-    await DeckRepository().delete(id);
-    ref.invalidateSelf();
-    await future;
+  Future<void> deleteDeck(Deck deck) async {
+    await DeckRepository().delete(deck.id!);
+    final previousState = await future;
+    previousState.remove(deck);
+    ref.notifyListeners();
   }
 }
 
@@ -35,7 +37,6 @@ class DeckNotifier extends _$DeckNotifier {
 
   Future<void> updateDeck(Deck deck) async {
     await DeckRepository().update(deck);
-    ref.invalidateSelf();
-    await future;
+    ref.notifyListeners();
   }
 }

@@ -6,7 +6,7 @@ part of 'card_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cardListNotifierHash() => r'45d84b3663c2e9322baf0ecd19503bbbb4105480';
+String _$cardListNotifierHash() => r'8c21d8efd04de53b45f898488d171a8d7d09304e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -171,6 +171,150 @@ class _CardListNotifierProviderElement
 
   @override
   int get id => (origin as CardListNotifierProvider).id;
+}
+
+String _$cardNotifierHash() => r'9e58802983118e4dcb07c95ea652b12b94419a8e';
+
+abstract class _$CardNotifier extends BuildlessAutoDisposeAsyncNotifier<Deck> {
+  late final int id;
+
+  FutureOr<Deck> build(
+    int id,
+  );
+}
+
+/// See also [CardNotifier].
+@ProviderFor(CardNotifier)
+const cardNotifierProvider = CardNotifierFamily();
+
+/// See also [CardNotifier].
+class CardNotifierFamily extends Family<AsyncValue<Deck>> {
+  /// See also [CardNotifier].
+  const CardNotifierFamily();
+
+  /// See also [CardNotifier].
+  CardNotifierProvider call(
+    int id,
+  ) {
+    return CardNotifierProvider(
+      id,
+    );
+  }
+
+  @override
+  CardNotifierProvider getProviderOverride(
+    covariant CardNotifierProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'cardNotifierProvider';
+}
+
+/// See also [CardNotifier].
+class CardNotifierProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<CardNotifier, Deck> {
+  /// See also [CardNotifier].
+  CardNotifierProvider(
+    int id,
+  ) : this._internal(
+          () => CardNotifier()..id = id,
+          from: cardNotifierProvider,
+          name: r'cardNotifierProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$cardNotifierHash,
+          dependencies: CardNotifierFamily._dependencies,
+          allTransitiveDependencies:
+              CardNotifierFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  CardNotifierProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final int id;
+
+  @override
+  FutureOr<Deck> runNotifierBuild(
+    covariant CardNotifier notifier,
+  ) {
+    return notifier.build(
+      id,
+    );
+  }
+
+  @override
+  Override overrideWith(CardNotifier Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: CardNotifierProvider._internal(
+        () => create()..id = id,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<CardNotifier, Deck> createElement() {
+    return _CardNotifierProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CardNotifierProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin CardNotifierRef on AutoDisposeAsyncNotifierProviderRef<Deck> {
+  /// The parameter `id` of this provider.
+  int get id;
+}
+
+class _CardNotifierProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<CardNotifier, Deck>
+    with CardNotifierRef {
+  _CardNotifierProviderElement(super.provider);
+
+  @override
+  int get id => (origin as CardNotifierProvider).id;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

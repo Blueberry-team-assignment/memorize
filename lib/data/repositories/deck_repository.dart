@@ -5,9 +5,13 @@ import 'package:flutter_memorize/data/models/deck.dart';
 class DeckRepository {
   final dbHelper = DatabaseHelper();
 
-  Future<void> insert(Deck deck) async {
-    final db = await dbHelper.database;
-    await db.insert("deck", deck.toJson());
+  Future<void> save(Deck deck) async {
+    try {
+      final db = await DatabaseHelper().database;
+      await db.insert("deck", deck.toJson());
+    } catch (e) {
+      talker.error("DeckRepository.save $e");
+    }
   }
 
   Future<List<Deck>> findAll() async {

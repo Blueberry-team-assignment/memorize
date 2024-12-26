@@ -6,7 +6,7 @@ part of 'deck_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deckListNotifierHash() => r'49803800a2dc729b2c64ce2ecd4817d409aa6778';
+String _$deckListNotifierHash() => r'3392bd882e9d29a03f34cfdc368d7875041dc888';
 
 /// See also [DeckListNotifier].
 @ProviderFor(DeckListNotifier)
@@ -22,7 +22,7 @@ final deckListNotifierProvider =
 );
 
 typedef _$DeckListNotifier = AutoDisposeAsyncNotifier<List<Deck>>;
-String _$deckNotifierHash() => r'247d4d76d75bd14ec078d140d245a0705c07cb97';
+String _$deckNotifierHash() => r'c4fa41fc7a28b22f2a1f71bc009d1191e8073f6d';
 
 /// Copied from Dart SDK
 class _SystemHash {

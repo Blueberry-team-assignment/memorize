@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_memorize/core/utils/common_msg.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/data/providers/card_provider.dart';
 import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
+import 'package:flutter_memorize/providers/card_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeckDetailScreen extends ConsumerWidget {
@@ -69,34 +69,18 @@ class DeckDetailScreen extends ConsumerWidget {
                               ),
                             ),
                             confirmDismiss: (direction) async {
-                              return await showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('삭제 확인'),
-                                    content: Text('${card.title} 덱을 삭제하시겠습니까?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(false),
-                                        child: const Text('취소'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(true),
-                                        child: const Text('삭제'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              return await confirmDeleteShowDialog(
+                                  context, "${card.title} 카드를 삭제하시겠습니까?");
                             },
                             onDismissed: (direction) async {
                               await ref
                                   .read(cardListNotifierProvider(deck.id!)
                                       .notifier)
                                   .deleteCard(card);
-                              showSnackBar(context, '${card.title} 덱이 삭제되었습니다');
+                              if (context.mounted) {
+                                showSnackBar(
+                                    context, '${card.title} 카드가 삭제되었습니다');
+                              }
                             },
                             child: SizedBox(
                               width: double.infinity,

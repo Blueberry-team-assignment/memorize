@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/data/providers/deck_provider.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
+import 'package:flutter_memorize/providers/deck_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeckAppendScreen extends ConsumerWidget {
@@ -22,13 +22,11 @@ class DeckAppendScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // 제목 입력
             MemorizeInputTextField(
               controller: _titleController,
               title: "제목",
             ),
             const SizedBox(height: 16),
-            // 내용 입력
             MemorizeInputTextField(
               controller: _contentController,
               title: '내용',

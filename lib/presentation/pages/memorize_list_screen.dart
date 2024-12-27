@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/data/providers/deck_provider.dart';
 import 'package:flutter_memorize/presentation/pages/memorize_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
+import 'package:flutter_memorize/providers/deck_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MemorizeListScreen extends ConsumerWidget {

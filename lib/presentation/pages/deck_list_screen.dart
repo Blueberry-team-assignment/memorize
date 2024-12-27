@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/core/utils/common_msg.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/data/providers/deck_provider.dart';
 import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
+import 'package:flutter_memorize/providers/deck_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DeckListScreen extends ConsumerWidget {
@@ -39,33 +39,16 @@ class DeckListScreen extends ConsumerWidget {
                       ),
                     ),
                     confirmDismiss: (direction) async {
-                      return await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('삭제 확인'),
-                            content: Text('${deck.title} 덱을 삭제하시겠습니까?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text('취소'),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                                child: const Text('삭제'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      return await confirmDeleteShowDialog(
+                          context, "${deck.title} 덱을 삭제하시겠습니까?");
                     },
                     onDismissed: (direction) async {
                       await ref
                           .read(deckListNotifierProvider.notifier)
                           .deleteDeck(deck);
-                      showSnackBar(context, '${deck.title} 덱이 삭제되었습니다');
+                      if (context.mounted) {
+                        showSnackBar(context, '${deck.title} 덱이 삭제되었습니다');
+                      }
                     },
                     child: InkWell(
                       onTap: () {

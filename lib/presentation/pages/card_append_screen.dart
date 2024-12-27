@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/data/providers/card_provider.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
+import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
+import 'package:flutter_memorize/providers/card_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CardAppendScreen extends ConsumerWidget {
@@ -24,22 +25,14 @@ class CardAppendScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // 제목 입력
-            TextField(
+            MemorizeInputTextField(
               controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: '제목',
-                border: OutlineInputBorder(),
-              ),
+              title: "제목",
             ),
             const SizedBox(height: 16),
-            // 내용 입력
-            TextField(
+            MemorizeInputTextField(
               controller: _contentController,
-              decoration: const InputDecoration(
-                labelText: '내용',
-                border: OutlineInputBorder(),
-              ),
+              title: '내용',
               maxLines: 10,
             ),
             const Spacer(),

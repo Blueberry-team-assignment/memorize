@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/core/utils/common_msg.dart';
+import 'package:flutter_memorize/common/utils/common_msg.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
@@ -59,15 +59,7 @@ class DeckDetailScreen extends ConsumerWidget {
                           return Dismissible(
                             key: Key(card.id.toString()),
                             direction: DismissDirection.endToStart,
-                            background: Container(
-                              alignment: Alignment.centerRight,
-                              padding: const EdgeInsets.only(right: 20.0),
-                              color: Colors.red,
-                              child: const Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                            ),
+                            background: const MemorizedRedTrashIcon(),
                             confirmDismiss: (direction) async {
                               return await confirmDeleteShowDialog(
                                   context, "${card.title} 카드를 삭제하시겠습니까?");

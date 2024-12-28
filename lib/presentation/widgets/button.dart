@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/core/utils/common_msg.dart';
+import 'package:flutter_memorize/common/utils/common_msg.dart';
 
 class MemorizeFloatingActionButton extends StatelessWidget {
   final Widget forwardingWidget;
@@ -65,6 +65,25 @@ class MemorizeAcceptButton extends StatelessWidget {
             letterSpacing: 1,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MemorizedRedTrashIcon extends StatelessWidget {
+  const MemorizedRedTrashIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerRight,
+      padding: const EdgeInsets.only(right: 20.0),
+      color: Colors.red,
+      child: const Icon(
+        Icons.delete,
+        color: Colors.white,
       ),
     );
   }

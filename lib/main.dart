@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/core/utils/go_router_config.dart';
+import 'package:flutter_memorize/common/utils/go_router_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {

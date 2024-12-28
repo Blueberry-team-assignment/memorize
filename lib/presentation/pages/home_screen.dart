@@ -49,19 +49,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: '홈',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Memorize',
+            label: '학습시작',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_card),
-            label: 'Card',
+            label: '카드관리',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: '설정',
           ),
         ],
         currentIndex: _index,

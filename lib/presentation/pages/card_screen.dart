@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
-import 'package:flutter_memorize/data/repositories/card_repository.dart';
+import 'package:flutter_memorize/data/repositories/card_repository_impl.dart';
 
 class CardScreen extends StatefulWidget {
   final m.Card card;
-  final CardRepository cardRepository;
+  final CardRepositoryImpl cardRepository;
 
   const CardScreen(
       {super.key, required this.card, required this.cardRepository});

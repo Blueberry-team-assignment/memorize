@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/providers/card_provider.dart';
+import 'package:flutter_memorize/providers/card_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MemorizeScreen extends ConsumerWidget {
@@ -18,47 +18,51 @@ class MemorizeScreen extends ConsumerWidget {
       ),
       body: Center(
           child: switch (cardList) {
-        AsyncData(:final value) => ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            itemCount: value.length,
-            itemBuilder: (context, index) {
-              var card = value[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50),
-                child: Container(
-                  width: 350,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 15,
-                          offset: const Offset(10, 10),
-                          color: Colors.black.withOpacity(0.5),
-                        )
-                      ]),
-                  child: Card(
-                    child: Center(
-                      child: Text(
-                        card.title,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(
-              width: 40,
-            ),
-          ),
+        AsyncData(:final value) => _MemorizeList(cardList: value),
         Error() => const Text('Oops, something unexpected happened'),
         _ => const CircularProgressIndicator(),
       }),
+    );
+  }
+}
+
+class _MemorizeList extends StatelessWidget {
+  const _MemorizeList({
+    required this.cardList,
+  });
+
+  final List<m.Card> cardList;
+
+  @override
+  Widget build(BuildContext context) {
+    final PageController controller = PageController(initialPage: 0);
+    return Container(
+      color: Colors.transparent,
+      padding: const EdgeInsets.fromLTRB(4, 10, 4, 60),
+      width: double.infinity,
+      height: double.infinity,
+      child: PageView.builder(
+        controller: controller,
+        itemCount: cardList.length,
+        itemBuilder: (context, index) {
+          var card = cardList[index];
+          return Container(
+            padding: const EdgeInsets.fromLTRB(20, 28, 20, 24),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.12),
+                      blurRadius: 6,
+                      spreadRadius: 3,
+                      offset: const Offset(0, 0))
+                ]),
+            child: Text(card.title),
+          );
+        },
+      ),
     );
   }
 }

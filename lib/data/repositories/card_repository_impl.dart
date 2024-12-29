@@ -2,6 +2,16 @@ import 'package:flutter_memorize/common/utils/database_helper.dart';
 import 'package:flutter_memorize/common/utils/talker_service.dart';
 import 'package:flutter_memorize/data/models/card.dart';
 import 'package:flutter_memorize/domain/repositories/card_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sqflite/sqflite.dart';
+
+part 'card_repository_impl.g.dart';
+
+@riverpod
+CardRepository cardRepository(Ref ref) {
+  return CardRepositoryImpl();
+}
 
 class CardRepositoryImpl implements CardRepository {
   final dbHelper = DatabaseHelper();
@@ -53,8 +63,10 @@ class CardRepositoryImpl implements CardRepository {
 
   @override
   Future<void> deleteByDeckId(int deckId) async {
+    talker.debug("CardRepositoryImpl.deleteByDeckId init : deck id $deckId");
     final db = await dbHelper.database;
-    await db.delete("deck", where: 'deckId = ?', whereArgs: [deckId]);
+    await db.delete("card", where: 'deckId = ?', whereArgs: [deckId]);
+    talker.debug("CardRepositoryImpl.deleteByDeckId end : deck id $deckId");
   }
 
   @override
@@ -62,5 +74,13 @@ class CardRepositoryImpl implements CardRepository {
     final db = await dbHelper.database;
     await db
         .update("card", card.toJson(), where: 'id = ?', whereArgs: [card.id]);
+  }
+
+  @override
+  Future<int> getCount(int deckId) async {
+    final db = await dbHelper.database;
+    List<Map<String, dynamic>> result =
+        await db.rawQuery('SELECT COUNT (*) from card where = ?', [deckId]);
+    return Sqflite.firstIntValue(result)!;
   }
 }

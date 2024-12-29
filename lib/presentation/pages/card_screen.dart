@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
-import 'package:flutter_memorize/data/repositories/card_repository_impl.dart';
 
 class CardScreen extends StatefulWidget {
   final m.Card card;
-  final CardRepositoryImpl cardRepository;
 
-  const CardScreen(
-      {super.key, required this.card, required this.cardRepository});
+  const CardScreen({super.key, required this.card});
 
   @override
   State<CardScreen> createState() => _CardScreenState();
@@ -72,7 +69,7 @@ class _CardScreenState extends State<CardScreen> {
                     desc: _contentController.text,
                     deckId: widget.card.deckId,
                   );
-                  await widget.cardRepository.update(card);
+                  //await widget.cardRepository.update(card);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[900],

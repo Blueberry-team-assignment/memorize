@@ -1,29 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card_provider.dart';
+part of 'card_list_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cardRepositoryHash() => r'2bfebe877a7c383e9e199944ef9cdca5fb45be03';
-
-/// See also [cardRepository].
-@ProviderFor(cardRepository)
-final cardRepositoryProvider = AutoDisposeProvider<CardRepository>.internal(
-  cardRepository,
-  name: r'cardRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$cardRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CardRepositoryRef = AutoDisposeProviderRef<CardRepository>;
-String _$cardListNotifierHash() => r'294beb734f258693ad000dad5c578eeb15760e7e';
+String _$cardListNotifierHash() => r'c960d7e9cde006088794ca09b18e625beb5780f5';
 
 /// Copied from Dart SDK
 class _SystemHash {

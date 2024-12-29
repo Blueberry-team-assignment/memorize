@@ -12,4 +12,6 @@ abstract interface class CardRepository {
   Future<void> deleteByDeckId(int deckId);
 
   Future<void> update(Card card);
+
+  Future<int> getCount(int deckId);
 }

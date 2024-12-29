@@ -1,29 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'deck_provider.dart';
+part of 'deck_list_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deckRepositoryHash() => r'90433b424fac1ae1eb59f0a94bdcd4bfbf6c4dd6';
-
-/// See also [deckRepository].
-@ProviderFor(deckRepository)
-final deckRepositoryProvider = AutoDisposeProvider<DeckRepository>.internal(
-  deckRepository,
-  name: r'deckRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$deckRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef DeckRepositoryRef = AutoDisposeProviderRef<DeckRepository>;
-String _$deckListNotifierHash() => r'8242369a6d15b546ca22ac9be712be334c3bcd1d';
+String _$deckListNotifierHash() => r'f208cbf8f53bf8e343feb58b5dd13bde6141736f';
 
 /// See also [DeckListNotifier].
 @ProviderFor(DeckListNotifier)

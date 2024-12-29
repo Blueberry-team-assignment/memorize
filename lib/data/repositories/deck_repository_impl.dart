@@ -2,6 +2,15 @@ import 'package:flutter_memorize/common/utils/database_helper.dart';
 import 'package:flutter_memorize/common/utils/talker_service.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/domain/repositories/deck_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'deck_repository_impl.g.dart';
+
+@riverpod
+DeckRepository deckRepository(Ref ref) {
+  return DeckRepositoryImpl();
+}
 
 class DeckRepositoryImpl implements DeckRepository {
   final dbHelper = DatabaseHelper();

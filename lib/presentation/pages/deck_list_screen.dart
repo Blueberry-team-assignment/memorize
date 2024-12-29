@@ -58,13 +58,16 @@ class DeckListScreen extends ConsumerWidget {
               }
             },
             child: InkWell(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                final title = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => DeckDetailScreen(deck: deck),
                   ),
                 );
+                if (title != null) {
+                  showSnackBar(context, '$title 덱이 삭제 되었습니다.');
+                }
               },
               child: SizedBox(
                 width: double.infinity,

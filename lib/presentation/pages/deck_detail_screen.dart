@@ -65,7 +65,7 @@ class DeckDetailScreen extends ConsumerWidget {
                               .read(deckListNotifierProvider.notifier)
                               .deleteDeck(deck);
                           if (context.mounted) {
-                            showSnackBar(context, '${deck.title} 덱이 삭제되었습니다');
+                            Navigator.pop(context, deck.title);
                           }
                         }
                       },

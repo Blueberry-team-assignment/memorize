@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
+import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_list_screen.dart';
 import 'package:flutter_memorize/presentation/pages/home_screen.dart';
 import 'package:flutter_memorize/presentation/pages/memorize_list_screen.dart';
@@ -84,6 +85,12 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: '/add',
                   builder: (context, state) => DeckAppendScreen(),
+                ),
+                GoRoute(
+                  path: '/:deckId',
+                  builder: (context, state) => DeckDetailScreen(
+                    deck: GoRouterState.of(context).extra! as Deck,
+                  ),
                 ),
               ],
             ),

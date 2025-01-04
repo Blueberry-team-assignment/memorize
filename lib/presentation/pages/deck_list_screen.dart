@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/utils/common_msg.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/providers/deck_list_notifier.dart';
@@ -18,8 +17,8 @@ class DeckListScreen extends ConsumerWidget {
       body: Center(
         child: switch (deckList) {
           AsyncData(:final value) => _makeDeckList(value, ref),
-          AsyncError() => const Text('Oops, something unexpected happened'),
-          _ => const CircularProgressIndicator(),
+          AsyncError() => const _error(),
+          _ => _loading(),
         },
       ),
       floatingActionButton: AppendButton(
@@ -33,6 +32,8 @@ class DeckListScreen extends ConsumerWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
+
+  CircularProgressIndicator _loading() => const CircularProgressIndicator();
 
   Widget _makeDeckList(List<Deck> value, WidgetRef ref) {
     if (value.isEmpty) {
@@ -63,12 +64,8 @@ class DeckListScreen extends ConsumerWidget {
             },
             child: InkWell(
               onTap: () async {
-                final title = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DeckDetailScreen(deck: deck),
-                  ),
-                );
+                final title =
+                    await context.push('/decks/${deck.id}', extra: deck);
                 if (title != null) {
                   showSnackBar(context, '$title 덱이 삭제 되었습니다.');
                 }
@@ -97,5 +94,16 @@ class DeckListScreen extends ConsumerWidget {
         },
       ),
     );
+  }
+}
+
+class _error extends StatelessWidget {
+  const _error({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('Oops, something unexpected happened');
   }
 }

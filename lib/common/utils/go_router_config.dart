@@ -8,29 +8,83 @@ import 'package:go_router/go_router.dart';
 final GoRouter router = GoRouter(
   initialLocation: '/',
   routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const HomeScreen();
+    StatefulShellRoute.indexedStack(
+      builder: (BuildContext context, GoRouterState state,
+          StatefulNavigationShell navigationShell) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Memorize'),
+          ),
+          body: navigationShell,
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: '홈',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.book),
+                label: '학습시작',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add_card),
+                label: '카드관리',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: '설정',
+              ),
+            ],
+            currentIndex: navigationShell.currentIndex,
+            selectedItemColor: Colors.amber[800],
+            unselectedItemColor: Colors.grey,
+            onTap: (int index) {
+              navigationShell.goBranch(index, initialLocation: true);
+            },
+          ),
+        );
       },
-    ),
-    GoRoute(
-      path: '/memorize',
-      builder: (BuildContext context, GoRouterState state) {
-        return const MemorizeListScreen();
-      },
-    ),
-    GoRoute(
-      path: '/deck_list',
-      builder: (BuildContext context, GoRouterState state) {
-        return const DeckListScreen();
-      },
-    ),
-    GoRoute(
-      path: '/settings',
-      builder: (BuildContext context, GoRouterState state) {
-        return const SettingScreen();
-      },
-    ),
+      branches: <StatefulShellBranch>[
+        // Tab 1
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+                path: '/',
+                builder: (BuildContext context, GoRouterState state) =>
+                    const HomeScreen()),
+          ],
+        ),
+        // Tab 2
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/memorized',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const MemorizeListScreen(),
+            ),
+          ],
+        ),
+        // Tab 3
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/decks',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const DeckListScreen(),
+            ),
+          ],
+        ),
+        // Tab 4
+        StatefulShellBranch(
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/settings',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const SettingScreen(),
+            ),
+          ],
+        ),
+      ],
+    )
   ],
 );

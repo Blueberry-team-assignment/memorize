@@ -20,9 +20,11 @@ class DeckDetailScreen extends ConsumerWidget {
     final AsyncValue<List<m.Card>> cardList =
         ref.watch(cardListNotifierProvider(deck.id!));
     return Scaffold(
+      /*
       appBar: AppBar(
         title: const Text('카드 리스트'),
       ),
+      */
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
         child: Column(
@@ -97,13 +99,24 @@ class DeckDetailScreen extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: MemorizeFloatingActionButton(
-        message: "카드가 추가되었습니다.",
-        onPressed: () async {
-          await context.push("/cards/add", extra: deck);
-        },
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const NavigatorBeforeButton(),
+            AppendButton(
+              onPressed: () async {
+                final title = await context.push("/cards/add", extra: deck);
+                if (title != null) {
+                  showSnackBar(context, '$title 카드가 추가되었습니다.');
+                }
+              },
+            ),
+          ],
+        ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 

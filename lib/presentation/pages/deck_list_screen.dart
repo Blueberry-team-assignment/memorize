@@ -22,10 +22,12 @@ class DeckListScreen extends ConsumerWidget {
           _ => const CircularProgressIndicator(),
         },
       ),
-      floatingActionButton: MemorizeFloatingActionButton(
-        message: "덱이 추가 되었습니다.",
+      floatingActionButton: AppendButton(
         onPressed: () async {
-          await context.push("/decks/add");
+          final title = await context.push("/decks/add");
+          if (title != null) {
+            showSnackBar(context, '$title 덱이 추가되었습니다.');
+          }
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

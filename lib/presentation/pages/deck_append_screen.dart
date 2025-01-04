@@ -14,11 +14,6 @@ class DeckAppendScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: const Text('새로운 덱 추가'),
-      ),
-      */
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -35,7 +30,17 @@ class DeckAppendScreen extends ConsumerWidget {
               maxLines: 10,
             ),
             const Spacer(),
-            MemorizeAcceptButton(
+          ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const NavigatorBeforeButton(),
+            FloatingActionButton(
+              heroTag: 'saveDeck',
               onPressed: () async {
                 Deck deck = Deck(
                   title: _titleController.text,
@@ -44,10 +49,13 @@ class DeckAppendScreen extends ConsumerWidget {
                 await ref.read(deckListNotifierProvider.notifier).addDeck(deck);
                 if (context.mounted) Navigator.pop(context, deck.title);
               },
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.check),
             ),
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 }

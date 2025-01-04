@@ -1,37 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/common/utils/common_msg.dart';
+import 'package:go_router/go_router.dart';
 
-class MemorizeFloatingActionButton extends StatelessWidget {
-  const MemorizeFloatingActionButton({
+class AppendButton extends StatelessWidget {
+  const AppendButton({
     super.key,
-    required String message,
     required Function() onPressed,
-  })  : _message = message,
-        _onPressed = onPressed;
+  }) : _onPressed = onPressed;
 
-  final String _message;
   final Function() _onPressed;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: 'modeAppendScreen',
       onPressed: () async {
-        /*
-        final title = await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => forwardingWidget,
-          ),
-        );
-        */
-        //final title = await context.push("/decks/add");
-        final title = await _onPressed();
-        if (title != null) {
-          showSnackBar(context, '$title $_message');
-        }
+        _onPressed();
       },
       backgroundColor: Colors.grey[300],
       child: const Icon(Icons.add),
+    );
+  }
+}
+
+class NavigatorBeforeButton extends StatelessWidget {
+  const NavigatorBeforeButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      heroTag: 'before',
+      onPressed: () => context.pop(),
+      child: const Icon(Icons.navigate_before),
     );
   }
 }

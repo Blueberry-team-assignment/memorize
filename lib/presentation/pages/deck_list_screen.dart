@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/utils/common_msg.dart';
+import 'package:flutter_memorize/common/widget/async_widget.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
@@ -17,8 +18,8 @@ class DeckListScreen extends ConsumerWidget {
       body: Center(
         child: switch (deckList) {
           AsyncData(:final value) => _makeDeckList(value, ref),
-          AsyncError() => const _error(),
-          _ => _loading(),
+          AsyncError() => const Error(),
+          _ => const Loading(),
         },
       ),
       floatingActionButton: AppendButton(
@@ -32,8 +33,6 @@ class DeckListScreen extends ConsumerWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
-
-  CircularProgressIndicator _loading() => const CircularProgressIndicator();
 
   Widget _makeDeckList(List<Deck> value, WidgetRef ref) {
     if (value.isEmpty) {
@@ -94,16 +93,5 @@ class DeckListScreen extends ConsumerWidget {
         },
       ),
     );
-  }
-}
-
-class _error extends StatelessWidget {
-  const _error({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('Oops, something unexpected happened');
   }
 }

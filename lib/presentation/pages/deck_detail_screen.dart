@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/utils/common_msg.dart';
 import 'package:flutter_memorize/common/utils/talker_service.dart';
+import 'package:flutter_memorize/common/widget/async_widget.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/pages/card_screen.dart';
@@ -67,7 +68,7 @@ class DeckDetailScreen extends ConsumerWidget {
                               .read(deckListNotifierProvider.notifier)
                               .deleteDeck(deck);
                           if (context.mounted) {
-                            Navigator.pop(context, deck.title);
+                            context.pop(deck.title);
                           }
                         }
                       },
@@ -90,9 +91,8 @@ class DeckDetailScreen extends ConsumerWidget {
               child: Center(
                 child: switch (cardList) {
                   AsyncData(:final value) => _makeCardList(value, ref),
-                  AsyncError() =>
-                    const Text('Oops, something unexpected happened'),
-                  _ => const CircularProgressIndicator(),
+                  AsyncError() => const Error(),
+                  _ => const Loading(),
                 },
               ),
             )

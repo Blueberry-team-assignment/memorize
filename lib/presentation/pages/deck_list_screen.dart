@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/utils/common_msg.dart';
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/providers/deck_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DeckListScreen extends ConsumerWidget {
   const DeckListScreen({super.key});
@@ -23,8 +23,10 @@ class DeckListScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: MemorizeFloatingActionButton(
-        forwardingWidget: DeckAppendScreen(),
         message: "덱이 추가 되었습니다.",
+        onPressed: () async {
+          await context.push("/decks/add");
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

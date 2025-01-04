@@ -14,9 +14,11 @@ class DeckAppendScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      /*
       appBar: AppBar(
         title: const Text('새로운 덱 추가'),
       ),
+      */
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

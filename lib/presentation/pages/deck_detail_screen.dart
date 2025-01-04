@@ -3,13 +3,13 @@ import 'package:flutter_memorize/common/utils/common_msg.dart';
 import 'package:flutter_memorize/common/utils/talker_service.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/card_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/providers/card_list_notifier.dart';
 import 'package:flutter_memorize/providers/deck_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DeckDetailScreen extends ConsumerWidget {
   final Deck deck;
@@ -98,10 +98,10 @@ class DeckDetailScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: MemorizeFloatingActionButton(
-        forwardingWidget: CardAppendScreen(
-          deck: deck,
-        ),
         message: "카드가 추가되었습니다.",
+        onPressed: () async {
+          await context.push("/cards/add", extra: deck);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

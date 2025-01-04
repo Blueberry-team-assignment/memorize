@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
+import 'package:flutter_memorize/presentation/pages/card_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_list_screen.dart';
@@ -16,6 +18,12 @@ final GoRouter router = GoRouter(
       path: '/cards/add',
       builder: (context, state) => CardAppendScreen(
         deck: GoRouterState.of(context).extra! as Deck,
+      ),
+    ),
+    GoRoute(
+      path: '/cards/:cardId',
+      builder: (context, state) => CardScreen(
+        card: GoRouterState.of(context).extra! as m.Card,
       ),
     ),
     StatefulShellRoute.indexedStack(

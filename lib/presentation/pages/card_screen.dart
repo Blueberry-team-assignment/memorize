@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
+import 'package:flutter_memorize/presentation/widgets/button.dart';
 
 class CardScreen extends StatefulWidget {
   final m.Card card;
@@ -32,7 +33,8 @@ class _CardScreenState extends State<CardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Card'),
+        title: const Text('Memorize'),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -57,42 +59,33 @@ class _CardScreenState extends State<CardScreen> {
               ),
               maxLines: 10,
             ),
-            const Spacer(),
-            Container(
-              height: 55,
-              margin: const EdgeInsets.only(bottom: 16),
-              child: ElevatedButton(
-                onPressed: () async {
-                  m.Card card = m.Card(
-                    id: widget.card.id!,
-                    title: _titleController.text,
-                    desc: _contentController.text,
-                    deckId: widget.card.deckId,
-                  );
-                  //await widget.cardRepository.update(card);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[900],
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  elevation: 3,
-                  shadowColor: Colors.grey[900]?.withOpacity(0.5),
-                ),
-                child: const Text(
-                  '수정',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
+          ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const NavigatorBeforeButton(),
+            FloatingActionButton(
+              heroTag: 'updataCard',
+              onPressed: () {
+                m.Card card = m.Card(
+                  id: widget.card.id!,
+                  title: _titleController.text,
+                  desc: _contentController.text,
+                  deckId: widget.card.deckId,
+                );
+                //await widget.cardRepository.update(card);
+              },
+              backgroundColor: Colors.amberAccent,
+              child: const Icon(Icons.update),
             ),
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 }

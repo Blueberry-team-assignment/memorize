@@ -4,7 +4,6 @@ import 'package:flutter_memorize/common/utils/talker_service.dart';
 import 'package:flutter_memorize/common/widget/async_widget.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/presentation/pages/card_screen.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/providers/card_list_notifier.dart';
@@ -107,7 +106,7 @@ class DeckDetailScreen extends ConsumerWidget {
             const NavigatorBeforeButton(),
             AppendButton(
               onPressed: () async {
-                final title = await context.push("/cards/add", extra: deck);
+                final title = await context.push('/cards/add', extra: deck);
                 if (title != null) {
                   showSnackBar(context, '$title 카드가 추가되었습니다.');
                 }
@@ -131,13 +130,8 @@ class DeckDetailScreen extends ConsumerWidget {
         itemBuilder: (context, index) {
           final card = value[index];
           return InkWell(
-            onTap: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CardScreen(card: card),
-                ),
-              ),
+            onTap: () async {
+              await context.push('/cards/${card.id}', extra: card);
             },
             child: Dismissible(
               key: Key(card.id.toString()),

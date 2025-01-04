@@ -36,7 +36,32 @@ class CardAppendScreen extends ConsumerWidget {
               maxLines: 10,
             ),
             const Spacer(),
+            /*
             MemorizeAcceptButton(
+              onPressed: () async {
+                m.Card card = m.Card(
+                  title: _titleController.text,
+                  desc: _contentController.text,
+                  deckId: deck.id!,
+                );
+                await ref
+                    .read(cardListNotifierProvider(deck.id!).notifier)
+                    .addCard(card);
+                if (context.mounted) Navigator.pop(context, card.title);
+              },
+            ),
+            */
+          ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const NavigatorBeforeButton(),
+            ConfirmButton(
+              tagName: 'saveCard',
               onPressed: () async {
                 m.Card card = m.Card(
                   title: _titleController.text,
@@ -52,6 +77,7 @@ class CardAppendScreen extends ConsumerWidget {
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 }

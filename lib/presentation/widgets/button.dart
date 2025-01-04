@@ -37,41 +37,26 @@ class NavigatorBeforeButton extends StatelessWidget {
   }
 }
 
-class MemorizeAcceptButton extends StatelessWidget {
-  const MemorizeAcceptButton({
+class ConfirmButton extends StatelessWidget {
+  const ConfirmButton({
     super.key,
+    required String tagName,
     required Function() onPressed,
-  }) : _onPressed = onPressed;
+  })  : _tagName = tagName,
+        _onPressed = onPressed;
 
+  final String _tagName;
   final Function() _onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 55,
-      margin: const EdgeInsets.only(bottom: 16),
-      child: ElevatedButton(
-        onPressed: () async {
-          _onPressed();
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green[900],
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          elevation: 3,
-        ),
-        child: const Text(
-          '등록하기',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          ),
-        ),
-      ),
+    return FloatingActionButton(
+      heroTag: _tagName,
+      onPressed: () async {
+        await _onPressed();
+      },
+      backgroundColor: Colors.green,
+      child: const Icon(Icons.check),
     );
   }
 }

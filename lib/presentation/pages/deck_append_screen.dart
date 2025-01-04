@@ -39,8 +39,8 @@ class DeckAppendScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const NavigatorBeforeButton(),
-            FloatingActionButton(
-              heroTag: 'saveDeck',
+            ConfirmButton(
+              tagName: 'saveDeck',
               onPressed: () async {
                 Deck deck = Deck(
                   title: _titleController.text,
@@ -49,8 +49,6 @@ class DeckAppendScreen extends ConsumerWidget {
                 await ref.read(deckListNotifierProvider.notifier).addDeck(deck);
                 if (context.mounted) Navigator.pop(context, deck.title);
               },
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.check),
             ),
           ],
         ),

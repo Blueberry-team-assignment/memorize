@@ -47,6 +47,7 @@ class DeckAppendScreen extends ConsumerWidget {
                   desc: _contentController.text,
                 );
                 await ref.read(deckListNotifierProvider.notifier).addDeck(deck);
+
                 if (context.mounted) Navigator.pop(context, deck.title);
               },
             ),

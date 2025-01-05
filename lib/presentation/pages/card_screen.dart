@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/presentation/widgets/button.dart';
+import 'package:flutter_memorize/providers/card_list_notifier.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class CardScreen extends StatefulWidget {
+class CardScreen extends ConsumerStatefulWidget {
   final m.Card card;
 
   const CardScreen({super.key, required this.card});
 
   @override
-  State<CardScreen> createState() => _CardScreenState();
+  ConsumerState<CardScreen> createState() => _CardScreenState();
 }
 
-class _CardScreenState extends State<CardScreen> {
+class _CardScreenState extends ConsumerState<CardScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
 
@@ -70,14 +73,17 @@ class _CardScreenState extends State<CardScreen> {
             const NavigatorBeforeButton(),
             FloatingActionButton(
               heroTag: 'updataCard',
-              onPressed: () {
-                m.Card card = m.Card(
-                  id: widget.card.id!,
+              onPressed: () async {
+                m.Card updateCard = m.Card(
+                  id: widget.card.id,
                   title: _titleController.text,
                   desc: _contentController.text,
                   deckId: widget.card.deckId,
                 );
-                //await widget.cardRepository.update(card);
+                await ref
+                    .read(cardListNotifierProvider(updateCard.deckId).notifier)
+                    .updateCard(updateCard);
+                if (context.mounted) context.pop(updateCard.title);
               },
               backgroundColor: Colors.amberAccent,
               child: const Icon(Icons.update),

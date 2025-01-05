@@ -6,7 +6,7 @@ part of 'card_list_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cardListNotifierHash() => r'c960d7e9cde006088794ca09b18e625beb5780f5';
+String _$cardListNotifierHash() => r'215b9c1fc699adb9f46a56ff0e95ccda16feb7c0';
 
 /// Copied from Dart SDK
 class _SystemHash {

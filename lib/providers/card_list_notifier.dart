@@ -24,4 +24,10 @@ class CardListNotifier extends _$CardListNotifier {
     ref.invalidateSelf();
     await future;
   }
+
+  Future<void> updateCard(Card card) async {
+    await ref.read(cardUseCaseProvider).update(card);
+    ref.invalidateSelf();
+    await future;
+  }
 }

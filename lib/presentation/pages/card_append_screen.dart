@@ -5,6 +5,7 @@ import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/providers/card_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CardAppendScreen extends ConsumerWidget {
   final Deck deck;
@@ -72,7 +73,7 @@ class CardAppendScreen extends ConsumerWidget {
                 await ref
                     .read(cardListNotifierProvider(deck.id!).notifier)
                     .addCard(card);
-                if (context.mounted) Navigator.pop(context, card.title);
+                if (context.mounted) context.pop(card.title);
               },
             ),
           ],

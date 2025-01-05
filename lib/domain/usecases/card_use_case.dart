@@ -1,3 +1,4 @@
+import 'package:flutter_memorize/common/utils/talker_service.dart';
 import 'package:flutter_memorize/data/models/card.dart';
 import 'package:flutter_memorize/data/repositories/card_repository_impl.dart';
 import 'package:flutter_memorize/domain/repositories/card_repository.dart';
@@ -35,6 +36,7 @@ class CardUseCase {
   }
 
   Future<void> update(Card card) async {
+    talker.debug("cardUseCase.update init :  $card");
     await cardRepository.update(card);
   }
 

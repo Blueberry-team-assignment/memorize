@@ -131,7 +131,11 @@ class DeckDetailScreen extends ConsumerWidget {
           final card = value[index];
           return InkWell(
             onTap: () async {
-              await context.push('/cards/${card.id}', extra: card);
+              final title =
+                  await context.push('/cards/${card.id}', extra: card);
+              if (title != null) {
+                showSnackBar(context, '$title 카드가 수정되었습니다.');
+              }
             },
             child: Dismissible(
               key: Key(card.id.toString()),

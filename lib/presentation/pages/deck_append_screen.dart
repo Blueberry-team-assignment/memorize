@@ -4,6 +4,7 @@ import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/providers/deck_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DeckAppendScreen extends ConsumerWidget {
   final _titleController = TextEditingController();
@@ -48,7 +49,7 @@ class DeckAppendScreen extends ConsumerWidget {
                 );
                 await ref.read(deckListNotifierProvider.notifier).addDeck(deck);
 
-                if (context.mounted) Navigator.pop(context, deck.title);
+                if (context.mounted) context.pop(deck.title);
               },
             ),
           ],

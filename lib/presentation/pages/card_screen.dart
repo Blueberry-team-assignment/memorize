@@ -34,31 +34,20 @@ class _CardScreenState extends ConsumerState<CardScreen> {
       body: AppendFormWidget(
           titleController: _titleController,
           contentController: _contentController),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 25),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const NavigatorBeforeButton(),
-            FloatingActionButton(
-              heroTag: 'updataCard',
-              onPressed: () async {
-                m.Card updateCard = m.Card(
-                  id: widget.card.id,
-                  title: _titleController.text,
-                  desc: _contentController.text,
-                  deckId: widget.card.deckId,
-                );
-                await ref
-                    .read(cardListNotifierProvider(updateCard.deckId).notifier)
-                    .updateCard(updateCard);
-                if (context.mounted) context.pop(updateCard.title);
-              },
-              backgroundColor: Colors.amberAccent,
-              child: const Icon(Icons.update),
-            ),
-          ],
-        ),
+      floatingActionButton: floatingUpdateButton(
+        tagName: 'updateDeck',
+        onPressed: () async {
+          m.Card updateCard = m.Card(
+            id: widget.card.id,
+            title: _titleController.text,
+            desc: _contentController.text,
+            deckId: widget.card.deckId,
+          );
+          await ref
+              .read(cardListNotifierProvider(updateCard.deckId).notifier)
+              .updateCard(updateCard);
+          if (context.mounted) context.pop(updateCard.title);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );

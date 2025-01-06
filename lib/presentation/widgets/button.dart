@@ -37,8 +37,19 @@ class NavigatorBeforeButton extends StatelessWidget {
   }
 }
 
-class ConfirmButton extends StatelessWidget {
-  const ConfirmButton({
+Widget floatingConfirmButton(
+    {required tagName, required Function() onPressed}) {
+  return MemorizedFloatingButton(
+    tagName: tagName,
+    onPressed: onPressed,
+    backgroundColor: Colors.green,
+    icon: const Icon(Icons.check),
+  );
+}
+
+/*
+class FloatingConfirmButton extends StatelessWidget {
+  const FloatingConfirmButton({
     super.key,
     required String tagName,
     required Function() onPressed,
@@ -57,6 +68,55 @@ class ConfirmButton extends StatelessWidget {
       },
       backgroundColor: Colors.green,
       child: const Icon(Icons.check),
+    );
+  }
+}
+*/
+
+Widget floatingUpdateButton({required tagName, required Function() onPressed}) {
+  return MemorizedFloatingButton(
+    tagName: tagName,
+    onPressed: onPressed,
+    backgroundColor: Colors.amberAccent,
+    icon: const Icon(Icons.update),
+  );
+}
+
+class MemorizedFloatingButton extends StatelessWidget {
+  const MemorizedFloatingButton({
+    super.key,
+    required String tagName,
+    required Function() onPressed,
+    required Color backgroundColor,
+    required Icon icon,
+  })  : _tagName = tagName,
+        _onPressed = onPressed,
+        _backgroundColor = backgroundColor,
+        _icon = icon;
+
+  final String _tagName;
+  final Function() _onPressed;
+  final Color _backgroundColor;
+  final Icon _icon;
+
+  @override
+  Padding build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const NavigatorBeforeButton(),
+          FloatingActionButton(
+            heroTag: _tagName,
+            onPressed: () async {
+              await _onPressed();
+            },
+            backgroundColor: _backgroundColor,
+            child: _icon,
+          ),
+        ],
+      ),
     );
   }
 }

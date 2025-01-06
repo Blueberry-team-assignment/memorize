@@ -18,25 +18,16 @@ class DeckAppendScreen extends ConsumerWidget {
       body: AppendFormWidget(
           titleController: _titleController,
           contentController: _contentController),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 25),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const NavigatorBeforeButton(),
-            ConfirmButton(
-              tagName: 'saveDeck',
-              onPressed: () async {
-                Deck deck = Deck(
-                  title: _titleController.text,
-                  desc: _contentController.text,
-                );
-                await ref.read(deckListNotifierProvider.notifier).addDeck(deck);
-                if (context.mounted) context.pop(deck.title);
-              },
-            ),
-          ],
-        ),
+      floatingActionButton: floatingConfirmButton(
+        tagName: 'saveDeck',
+        onPressed: () async {
+          Deck deck = Deck(
+            title: _titleController.text,
+            desc: _contentController.text,
+          );
+          await ref.read(deckListNotifierProvider.notifier).addDeck(deck);
+          if (context.mounted) context.pop(deck.title);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );

@@ -16,13 +16,9 @@ class DeckRepositoryImpl implements DeckRepository {
   final dbHelper = DatabaseHelper();
 
   @override
-  Future<void> save(Deck deck) async {
-    try {
-      final db = await dbHelper.database;
-      await db.insert("deck", deck.toJson());
-    } catch (e) {
-      talker.error("DeckRepository.save $e");
-    }
+  Future<int> save(Deck deck) async {
+    final db = await dbHelper.database;
+    return await db.insert("deck", deck.toJson());
   }
 
   @override

@@ -15,9 +15,10 @@ class DeckListNotifier extends _$DeckListNotifier {
   }
 
   Future<void> addDeck(Deck deck) async {
-    await _handler.save(deck);
+    var deckId = await _handler.save(deck);
+    Deck added = deck.copyWith(id: deckId);
     final previousState = await future;
-    previousState.add(deck);
+    previousState.add(added);
     ref.notifyListeners();
   }
 

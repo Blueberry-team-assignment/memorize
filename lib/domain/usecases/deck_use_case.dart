@@ -24,8 +24,8 @@ class DeckUseCase {
 
   DeckUseCase({required this.deckRepository, required this.cardRepository});
 
-  Future<void> save(Deck deck) async {
-    await deckRepository.save(deck);
+  Future<int> save(Deck deck) async {
+    return await deckRepository.save(deck);
   }
 
   Future<List<Deck>> findAll() async {

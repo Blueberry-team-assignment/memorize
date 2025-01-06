@@ -6,7 +6,7 @@ part of 'deck_list_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deckListNotifierHash() => r'ec2158e8b46195e2d254b32eb533435a724459e6';
+String _$deckListNotifierHash() => r'1abde585a44cfc1a7458f1e9a4965c7df6cde1a5';
 
 /// See also [DeckListNotifier].
 @ProviderFor(DeckListNotifier)

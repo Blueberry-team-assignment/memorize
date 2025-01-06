@@ -1,7 +1,7 @@
 import 'package:flutter_memorize/data/models/deck.dart';
 
 abstract interface class DeckRepository {
-  Future<void> save(Deck deck);
+  Future<int> save(Deck deck);
 
   Future<List<Deck>> findAll();
 

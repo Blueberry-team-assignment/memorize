@@ -17,9 +17,9 @@ class CardRepositoryImpl implements CardRepository {
   final dbHelper = DatabaseHelper();
 
   @override
-  Future<void> save(Card card) async {
+  Future<int> save(Card card) async {
     final db = await dbHelper.database;
-    await db.insert("card", card.toJson());
+    return await db.insert("card", card.toJson());
   }
 
   @override

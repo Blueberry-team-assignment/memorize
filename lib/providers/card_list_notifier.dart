@@ -15,9 +15,10 @@ class CardListNotifier extends _$CardListNotifier {
   }
 
   Future<void> addCard(Card card) async {
-    await _handler.save(card);
+    var cardId = await _handler.save(card);
+    Card added = card.copyWith(id: cardId);
     final previousState = await future;
-    previousState.add(card);
+    previousState.add(added);
     ref.notifyListeners();
   }
 

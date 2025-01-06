@@ -19,8 +19,8 @@ class CardUseCase {
 
   CardUseCase({required this.cardRepository});
 
-  Future<void> save(Card card) async {
-    await cardRepository.save(card);
+  Future<int> save(Card card) async {
+    return await cardRepository.save(card);
   }
 
   Future<List<Card>> findByDeckId(int deckId) async {

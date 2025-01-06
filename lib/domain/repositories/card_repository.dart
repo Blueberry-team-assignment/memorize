@@ -1,7 +1,7 @@
 import 'package:flutter_memorize/data/models/card.dart';
 
 abstract interface class CardRepository {
-  Future<void> save(Card card);
+  Future<int> save(Card card);
 
   Future<List<Card>> findByDeckId(int deckId);
 

@@ -6,21 +6,23 @@ part 'deck_list_notifier.g.dart';
 
 @riverpod
 class DeckListNotifier extends _$DeckListNotifier {
+  late final _handler = ref.read(deckUseCaseProvider);
+
   @override
   Future<List<Deck>> build() async {
-    final list = await ref.read(deckUseCaseProvider).findAll();
+    final list = await _handler.findAll();
     return list;
   }
 
   Future<void> addDeck(Deck deck) async {
-    await ref.read(deckUseCaseProvider).save(deck);
+    await _handler.save(deck);
     final previousState = await future;
     previousState.add(deck);
     ref.notifyListeners();
   }
 
   Future<void> deleteDeck(Deck deck) async {
-    await ref.read(deckUseCaseProvider).delete(deck.id!);
+    await _handler.delete(deck.id!);
     final previousState = await future;
     previousState.remove(deck);
     ref.notifyListeners();

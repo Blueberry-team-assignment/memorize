@@ -6,27 +6,29 @@ part 'card_list_notifier.g.dart';
 
 @riverpod
 class CardListNotifier extends _$CardListNotifier {
+  late final _handler = ref.read(cardUseCaseProvider);
+
   @override
   Future<List<Card>> build(int id) async {
-    final list = await ref.read(cardUseCaseProvider).findByDeckId(id);
+    final list = await _handler.findByDeckId(id);
     return list;
   }
 
   Future<void> addCard(Card card) async {
-    await ref.read(cardUseCaseProvider).save(card);
+    await _handler.save(card);
     final previousState = await future;
     previousState.add(card);
     ref.notifyListeners();
   }
 
   Future<void> deleteCard(Card card) async {
-    await ref.read(cardUseCaseProvider).delete(card.id!);
+    await _handler.delete(card.id!);
     ref.invalidateSelf();
     await future;
   }
 
   Future<void> updateCard(Card card) async {
-    await ref.read(cardUseCaseProvider).update(card);
+    await _handler.update(card);
     ref.invalidateSelf();
     await future;
   }

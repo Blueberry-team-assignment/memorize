@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/common/widget/appbar_widget.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/presentation/widgets/button.dart';
 import 'package:flutter_memorize/providers/card_list_notifier.dart';
@@ -26,19 +27,9 @@ class _CardScreenState extends ConsumerState<CardScreen> {
   }
 
   @override
-  void dispose() {
-    _titleController.dispose();
-    _contentController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Memorize'),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const MemorizedAppbar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

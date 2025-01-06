@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/common/widget/appbar_widget.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/providers/card_list_notifier.dart';
@@ -13,9 +14,7 @@ class MemorizeScreen extends ConsumerWidget {
     final AsyncValue<List<m.Card>> cardList =
         ref.watch(cardListNotifierProvider(deck.id!));
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${deck.title} memorizing'),
-      ),
+      appBar: const MemorizedAppbar(),
       body: Center(
           child: switch (cardList) {
         AsyncData(:final value) => _MemorizeList(cardList: value),

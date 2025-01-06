@@ -20,11 +20,6 @@ class DeckDetailScreen extends ConsumerWidget {
     final AsyncValue<List<m.Card>> cardList =
         ref.watch(cardListNotifierProvider(deck.id!));
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: const Text('카드 리스트'),
-      ),
-      */
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
         child: Column(

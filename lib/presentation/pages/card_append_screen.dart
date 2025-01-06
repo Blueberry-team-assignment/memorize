@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_memorize/common/widget/appbar_widget.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
@@ -18,10 +19,7 @@ class CardAppendScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Memorize'),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const MemorizedAppbar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

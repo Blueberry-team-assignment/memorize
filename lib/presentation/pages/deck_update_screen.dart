@@ -1,52 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/common/widget/appbar_widget.dart';
-import 'package:flutter_memorize/data/models/card.dart' as m;
+import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/widgets/append_form_widget.dart';
 import 'package:flutter_memorize/presentation/widgets/button.dart';
-import 'package:flutter_memorize/providers/card_list_notifier.dart';
+import 'package:flutter_memorize/providers/deck_list_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CardScreen extends ConsumerStatefulWidget {
-  final m.Card card;
+class DeckUpdateScreen extends ConsumerStatefulWidget {
+  final Deck _deck;
 
-  const CardScreen({super.key, required this.card});
+  const DeckUpdateScreen({
+    super.key,
+    required Deck deck,
+  }) : _deck = deck;
 
   @override
-  ConsumerState<CardScreen> createState() => _CardScreenState();
+  ConsumerState<DeckUpdateScreen> createState() => _DeckUpdateScreenState();
 }
 
-class _CardScreenState extends ConsumerState<CardScreen> {
+class _DeckUpdateScreenState extends ConsumerState<DeckUpdateScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _titleController.text = widget.card.title.toString();
-    _contentController.text = widget.card.desc.toString();
+    _titleController.text = widget._deck.title.toString();
+    _contentController.text = widget._deck.desc.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MemorizedAppbar(),
       body: AppendFormWidget(
           titleController: _titleController,
           contentController: _contentController),
       floatingActionButton: floatingUpdateButton(
         tagName: 'updateDeck',
         onPressed: () async {
-          m.Card updateCard = m.Card(
-            id: widget.card.id,
+          Deck updatedDeck = Deck(
+            id: widget._deck.id,
             title: _titleController.text,
             desc: _contentController.text,
-            deckId: widget.card.deckId,
           );
+
           await ref
-              .read(cardListNotifierProvider(updateCard.deckId).notifier)
-              .updateCard(updateCard);
-          if (context.mounted) context.pop(updateCard.title);
+              .read(deckListNotifierProvider.notifier)
+              .updateDeck(updatedDeck);
+          if (context.mounted) context.pop(updatedDeck.title);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,

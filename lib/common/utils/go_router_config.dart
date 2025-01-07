@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_memorize/data/models/card.dart' as m;
 import 'package:flutter_memorize/data/models/deck.dart';
 import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
-import 'package:flutter_memorize/presentation/pages/card_screen.dart';
+import 'package:flutter_memorize/presentation/pages/card_update_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
 import 'package:flutter_memorize/presentation/pages/deck_list_screen.dart';
+import 'package:flutter_memorize/presentation/pages/deck_update_screen.dart';
 import 'package:flutter_memorize/presentation/pages/home_screen.dart';
 import 'package:flutter_memorize/presentation/pages/memorize_list_screen.dart';
 import 'package:flutter_memorize/presentation/pages/setting_screen.dart';
@@ -22,7 +23,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/cards/:cardId',
-      builder: (context, state) => CardScreen(
+      builder: (context, state) => CardUpdateScreen(
         card: GoRouterState.of(context).extra! as m.Card,
       ),
     ),
@@ -95,11 +96,18 @@ final GoRouter router = GoRouter(
                   builder: (context, state) => DeckAppendScreen(),
                 ),
                 GoRoute(
-                  path: '/:deckId',
-                  builder: (context, state) => DeckDetailScreen(
-                    deck: GoRouterState.of(context).extra! as Deck,
-                  ),
-                ),
+                    path: '/:deckId',
+                    builder: (context, state) => DeckDetailScreen(
+                          deck: GoRouterState.of(context).extra! as Deck,
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: '/update',
+                        builder: (context, state) => DeckUpdateScreen(
+                          deck: GoRouterState.of(context).extra! as Deck,
+                        ),
+                      ),
+                    ]),
               ],
             ),
           ],

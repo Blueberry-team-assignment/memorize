@@ -45,7 +45,13 @@ class DeckDetailScreen extends ConsumerWidget {
                         size: 20,
                         color: Colors.green,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final title = await context
+                            .push('/decks/${deck.id}/update', extra: deck);
+                        if (title != null) {
+                          showSnackBar(context, '$title 덱이 수정 되었습니다.');
+                        }
+                      },
                     ),
                     IconButton(
                       icon: const Icon(

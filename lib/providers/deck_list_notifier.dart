@@ -28,4 +28,10 @@ class DeckListNotifier extends _$DeckListNotifier {
     previousState.remove(deck);
     ref.notifyListeners();
   }
+
+  Future<void> updateDeck(Deck deck) async {
+    await _handler.update(deck);
+    ref.invalidateSelf();
+    await future;
+  }
 }

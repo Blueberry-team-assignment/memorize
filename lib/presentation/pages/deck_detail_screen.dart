@@ -107,7 +107,8 @@ class DeckDetailScreen extends ConsumerWidget {
             const NavigatorBeforeButton(),
             AppendButton(
               onPressed: () async {
-                final title = await context.push('/cards/add', extra: deck);
+                final title = await context.push('/decks/${deck.id}/cards/add',
+                    extra: deck);
                 if (title != null) {
                   showSnackBar(context, '$title 카드가 추가되었습니다.');
                 }
@@ -132,8 +133,8 @@ class DeckDetailScreen extends ConsumerWidget {
           final card = value[index];
           return InkWell(
             onTap: () async {
-              final title =
-                  await context.push('/cards/${card.id}', extra: card);
+              final title = await context
+                  .push('/decks/${deck.id}/cards/${card.id}', extra: card);
               if (title != null) {
                 showSnackBar(context, '$title 카드가 수정되었습니다.');
               }

@@ -15,18 +15,6 @@ import 'package:go_router/go_router.dart';
 final GoRouter router = GoRouter(
   initialLocation: '/',
   routes: <RouteBase>[
-    GoRoute(
-      path: '/cards/add',
-      builder: (context, state) => CardAppendScreen(
-        deck: GoRouterState.of(context).extra! as Deck,
-      ),
-    ),
-    GoRoute(
-      path: '/cards/:cardId',
-      builder: (context, state) => CardUpdateScreen(
-        card: GoRouterState.of(context).extra! as m.Card,
-      ),
-    ),
     StatefulShellRoute.indexedStack(
       builder: (BuildContext context, GoRouterState state,
           StatefulNavigationShell navigationShell) {
@@ -105,6 +93,18 @@ final GoRouter router = GoRouter(
                         path: '/update',
                         builder: (context, state) => DeckUpdateScreen(
                           deck: GoRouterState.of(context).extra! as Deck,
+                        ),
+                      ),
+                      GoRoute(
+                        path: '/cards/add',
+                        builder: (context, state) => CardAppendScreen(
+                          deck: GoRouterState.of(context).extra! as Deck,
+                        ),
+                      ),
+                      GoRoute(
+                        path: '/cards/:cardId',
+                        builder: (context, state) => CardUpdateScreen(
+                          card: GoRouterState.of(context).extra! as m.Card,
                         ),
                       ),
                     ]),

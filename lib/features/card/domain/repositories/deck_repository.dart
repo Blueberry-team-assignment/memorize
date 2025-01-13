@@ -1,4 +1,4 @@
-import 'package:flutter_memorize/data/models/deck.dart';
+import 'package:flutter_memorize/features/card/data/models/deck.dart';
 
 abstract interface class DeckRepository {
   Future<int> save(Deck deck);

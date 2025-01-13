@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_memorize/data/models/card.dart' as m;
-import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/presentation/pages/card_append_screen.dart';
-import 'package:flutter_memorize/presentation/pages/card_update_screen.dart';
-import 'package:flutter_memorize/presentation/pages/deck_append_screen.dart';
-import 'package:flutter_memorize/presentation/pages/deck_detail_screen.dart';
-import 'package:flutter_memorize/presentation/pages/deck_list_screen.dart';
-import 'package:flutter_memorize/presentation/pages/deck_update_screen.dart';
-import 'package:flutter_memorize/presentation/pages/home_screen.dart';
-import 'package:flutter_memorize/presentation/pages/memorize_list_screen.dart';
-import 'package:flutter_memorize/presentation/pages/setting_screen.dart';
+import 'package:flutter_memorize/features/card/data/models/card.dart' as m;
+import 'package:flutter_memorize/features/card/data/models/deck.dart';
+import 'package:flutter_memorize/features/card/presentation/pages/card_append_screen.dart';
+import 'package:flutter_memorize/features/card/presentation/pages/card_update_screen.dart';
+import 'package:flutter_memorize/features/card/presentation/pages/deck_append_screen.dart';
+import 'package:flutter_memorize/features/card/presentation/pages/deck_detail_screen.dart';
+import 'package:flutter_memorize/features/card/presentation/pages/deck_list_screen.dart';
+import 'package:flutter_memorize/features/card/presentation/pages/deck_update_screen.dart';
+import 'package:flutter_memorize/features/home/presentation/pages/home_screen.dart';
+import 'package:flutter_memorize/features/memorize/presentation/pages/memorize_list_screen.dart';
+import 'package:flutter_memorize/features/setting/presentation/pages/setting_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(

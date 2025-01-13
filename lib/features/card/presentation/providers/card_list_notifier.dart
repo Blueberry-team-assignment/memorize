@@ -1,5 +1,5 @@
-import 'package:flutter_memorize/data/models/card.dart';
-import 'package:flutter_memorize/domain/usecases/card_use_case.dart';
+import 'package:flutter_memorize/features/card/data/models/card.dart';
+import 'package:flutter_memorize/features/card/domain/usecases/card_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'card_list_notifier.g.dart';

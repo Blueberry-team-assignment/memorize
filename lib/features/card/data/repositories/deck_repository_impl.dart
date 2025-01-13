@@ -1,7 +1,7 @@
 import 'package:flutter_memorize/common/utils/database_helper.dart';
 import 'package:flutter_memorize/common/utils/talker_service.dart';
-import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/domain/repositories/deck_repository.dart';
+import 'package:flutter_memorize/features/card/data/models/deck.dart';
+import 'package:flutter_memorize/features/card/domain/repositories/deck_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

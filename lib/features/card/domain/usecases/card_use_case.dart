@@ -1,7 +1,7 @@
 import 'package:flutter_memorize/common/utils/talker_service.dart';
-import 'package:flutter_memorize/data/models/card.dart';
-import 'package:flutter_memorize/data/repositories/card_repository_impl.dart';
-import 'package:flutter_memorize/domain/repositories/card_repository.dart';
+import 'package:flutter_memorize/features/card/data/models/card.dart';
+import 'package:flutter_memorize/features/card/data/repositories/card_repository_impl.dart';
+import 'package:flutter_memorize/features/card/domain/repositories/card_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/utils/common_msg.dart';
 import 'package:flutter_memorize/common/utils/talker_service.dart';
 import 'package:flutter_memorize/common/widget/async_widget.dart';
-import 'package:flutter_memorize/data/models/card.dart' as m;
-import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/presentation/widgets/button.dart';
-import 'package:flutter_memorize/presentation/widgets/text_widget.dart';
-import 'package:flutter_memorize/providers/card_list_notifier.dart';
-import 'package:flutter_memorize/providers/deck_list_notifier.dart';
+import 'package:flutter_memorize/features/card/data/models/card.dart' as m;
+import 'package:flutter_memorize/features/card/data/models/deck.dart';
+import 'package:flutter_memorize/features/card/presentation/providers/card_list_notifier.dart';
+import 'package:flutter_memorize/features/card/presentation/providers/deck_list_notifier.dart';
+import 'package:flutter_memorize/features/card/presentation/widgets/button.dart';
+import 'package:flutter_memorize/features/card/presentation/widgets/text_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 

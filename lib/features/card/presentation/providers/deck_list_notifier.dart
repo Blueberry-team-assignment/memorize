@@ -1,5 +1,5 @@
-import 'package:flutter_memorize/data/models/deck.dart';
-import 'package:flutter_memorize/domain/usecases/deck_use_case.dart';
+import 'package:flutter_memorize/features/card/data/models/deck.dart';
+import 'package:flutter_memorize/features/card/domain/usecases/deck_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'deck_list_notifier.g.dart';

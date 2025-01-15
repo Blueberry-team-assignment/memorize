@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card_list_notifier.dart';
+part of 'card_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator

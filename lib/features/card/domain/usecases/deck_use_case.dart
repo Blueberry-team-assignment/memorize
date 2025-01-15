@@ -36,7 +36,6 @@ class DeckUseCase {
     return await deckRepository.findById(id);
   }
 
-  // TODO 트랜잭션 구현 방법 확인 하기
   Future<void> delete(int id) async {
     talker.debug("DeckUseCase.delete init");
     await deckRepository.delete(id);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/widget/async_widget.dart';
 import 'package:flutter_memorize/features/card/data/models/deck.dart';
-import 'package:flutter_memorize/features/card/presentation/providers/deck_list_notifier.dart';
+import 'package:flutter_memorize/features/card/presentation/providers/deck_notifier.dart';
 import 'package:flutter_memorize/features/card/presentation/widgets/text_widget.dart';
 import 'package:flutter_memorize/features/memorize/presentation/pages/memorize_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/common/utils/go_router_config.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(const Duration(seconds: 1));
+  FlutterNativeSplash.remove();
   runApp(
     const ProviderScope(
       child: MyApp(),

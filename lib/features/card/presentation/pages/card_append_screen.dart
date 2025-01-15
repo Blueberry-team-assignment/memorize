@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_memorize/features/card/data/models/card.dart' as m;
 import 'package:flutter_memorize/features/card/data/models/deck.dart';
-import 'package:flutter_memorize/features/card/presentation/providers/card_list_notifier.dart';
+import 'package:flutter_memorize/features/card/presentation/providers/card_notifier.dart';
 import 'package:flutter_memorize/features/card/presentation/widgets/append_form_widget.dart';
 import 'package:flutter_memorize/features/card/presentation/widgets/button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

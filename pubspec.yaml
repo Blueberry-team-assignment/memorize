@@ -69,7 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - images/memorize-splash.png
+  - images/memorize-splash.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -100,4 +100,4 @@ flutter:
 flutter_native_splash:
   ios: true
   color: '#FFFFFF'
-  image: 'images/memorize-splash.png'
+  image: 'images/memorize-splash.jpg'
